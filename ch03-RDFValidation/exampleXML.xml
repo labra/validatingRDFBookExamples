@@ -1,0 +1,11 @@
+<course name="Algebra">
+ <student id="alice">
+  <name>Alice</name>
+  <gender>Female</gender>
+ </student>
+ <student id="bob">
+  <name>Robert</name>
+  <gender>Male</gender>
+  <birthDate>1981-09-24</birthDate>
+ </student>
+</course>

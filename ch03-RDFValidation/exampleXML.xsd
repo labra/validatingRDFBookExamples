@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+  xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+
+<xs:element name="course">
+  <xs:complexType>
+   <xs:sequence>
+     <xs:element name="student" 
+	   minOccurs='1' maxOccurs='100'
+	   type="Student"/>
+   </xs:sequence>
+   <xs:attribute name="name" type="xs:string" />
+  </xs:complexType>
+</xs:element>
+
+<xs:complexType name="Student">
+   <xs:sequence>
+     <xs:element name="name" type="xs:string" />
+     <xs:element name="gender" type="Gender" />
+     <xs:element name="birthDate" type="xs:date" minOccurs='0'/>
+   </xs:sequence>
+   <xs:attribute name="id" type="xs:ID" use='required'/>
+</xs:complexType>
+
+ <xs:simpleType name="Gender">
+  <xs:restriction base="xs:token">
+   <xs:enumeration value="Male"/>
+   <xs:enumeration value="Female"/>
+  </xs:restriction>
+</xs:simpleType>
+</xs:schema>

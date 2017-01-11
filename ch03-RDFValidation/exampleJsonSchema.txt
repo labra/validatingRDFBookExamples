@@ -1,0 +1,23 @@
+{ "type": "object",
+  "properties": {
+    "students" : { 
+      "type": "array",
+      "items": { 
+        "type": "object", 
+        "properties": {
+		"name": {
+			"type": "string"
+		},
+		"gender": {
+			"type": "string"
+		},
+		"birthDate": {
+			"description": "Birth date",
+			"type": "string",
+		}
+	},
+	"required": ["name", "gender"]
+    }
+  }
+}
+}
