@@ -1,0 +1,11 @@
+@prefix ex:     <http://example.org/> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+ex:carol  schema:knows  [ schema:age         23 ;
+                          schema:birthPlace  _:x
+                        ] .
+
+ex:dave  schema:birthPlace  _:x .
+
+ex:alice  schema:knows  [ schema:knows  ex:dave ] .

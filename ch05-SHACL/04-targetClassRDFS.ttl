@@ -1,0 +1,36 @@
+prefix :       <http://example.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+        
+:User a sh:NodeShape ;
+ sh:targetClass :User ;
+ sh:property [
+    sh:path schema:name ; 
+    sh:minCount 1; 
+    sh:maxCount 1;
+    sh:datatype xsd:string ;
+ ] ;
+ sh:property [
+   sh:path schema:email ; 
+   sh:minCount 1; 
+   sh:maxCount 1; 
+   sh:nodeKind sh:IRI ;
+ ] .
+
+:Teacher rdfs:subClassOf :User .
+:teaches rdfs:domain :Teacher .
+
+:frank :teaches :Algebra ;
+       schema:name "Frank" ;
+       schema:email <frank@mail.org> .
+
+:grace :teaches :Logic ;
+       schema:name "Grace" ;
+       schema:email 34 .
+
+:oscar a :Teacher ;
+       schema:name "Oscar" ;
+       schema:email 45 .

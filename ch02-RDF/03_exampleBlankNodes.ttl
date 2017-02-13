@@ -1,0 +1,15 @@
+prefix schema: <http://schema.org/> 
+prefix ex:    <http://example.org/> 
+prefix dbr:   <http://dbpedia.org/resource/> 
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#> 
+
+ex:alice schema:knows _:x .
+_:x      schema:knows ex:dave .
+
+ex:carol schema:knows _:y .
+
+_:y      schema:birthPlace _:z ;
+         schema:age "23"^^xsd:integer .
+
+ex:dave  schema:birthPlace _:z .
+

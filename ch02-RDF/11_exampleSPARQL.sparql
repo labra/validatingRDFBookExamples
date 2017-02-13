@@ -1,0 +1,8 @@
+prefix :       <http://example.org/> 
+prefix schema: <http://schema.org/> 
+prefix dbr:    <http://dbpedia.org/resource/>
+
+SELECT ?x ?y WHERE {
+ ?x schema:birthPlace dbr:Oviedo .
+ ?x schema:knows ?y
+}
