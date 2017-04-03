@@ -1,0 +1,14 @@
+prefix :       <http://example.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+        
+:alice a :User ;
+       schema:follows :bob, :carol .
+
+:bob   a :User ;
+       schema:follows :alice, :bob .
+
+:carol a :User ;
+       schema:follows :alice, :bob, :carol .

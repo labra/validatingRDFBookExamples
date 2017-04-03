@@ -1,0 +1,16 @@
+prefix :       <http://example.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+        
+:User a sh:NodeShape, rdfs:Class ;
+  sh:property [
+   sh:path schema:affiliation ; 
+   sh:hasValue :ourCompany ;
+  ];
+  sh:property [
+   sh:path schema:gender ; 
+   sh:in (schema:Male schema:Female) 
+  ] .

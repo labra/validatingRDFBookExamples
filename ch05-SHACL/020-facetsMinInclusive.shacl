@@ -1,0 +1,15 @@
+prefix :       <http://example.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+        
+:Rating a sh:NodeShape ;
+ sh:targetSubjectsOf schema:ratingValue ;
+ sh:property [
+   sh:path schema:ratingValue ;
+   sh:minInclusive 1 ;
+   sh:maxInclusive 5 ;
+   sh:datatype xsd:integer
+ ] .
