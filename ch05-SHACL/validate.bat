@@ -1,0 +1,1 @@
+shaclex --engine SHACLEX --schema %1 --data %2
