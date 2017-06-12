@@ -1,22 +1,23 @@
-prefix :       <http://example.org/> 
-prefix sh:     <http://www.w3.org/ns/shacl#> 
-prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
-prefix schema: <http://schema.org/>
-prefix foaf:   <http://xmlns.com/foaf/0.1/>
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
         
-:dave  a :User ;                            
+:dave  a :User ;                        #%*\Fails{:User} *)     
        schema:name       "Dave";             
        schema:gender     :Unknown ;
-       schema:birthDate  1980 .
+       schema:birthDate  1980 ;
+       schema:knows      :grace .
 
-:emily a :User ;                            
+:emily a :User ;                        #%*\Fails{:User} *)          
        schema:name       "Emily", "Emilee";
        schema:gender     schema:Female .
 
-:frank a :User ;                            
+:frank a :User ;                        #%*\Fails{:User} *)     
        foaf:name         "Frank" ;           
-       schema:gender:    schema:Male .
+       schema:gender     schema:Male .
 
-_:x    a :User;                             
+_:x    a :User;                         #%*\Fails{:User} *)          
        schema:name       "Unknown" ;         
        schema:gender     schema:Male .

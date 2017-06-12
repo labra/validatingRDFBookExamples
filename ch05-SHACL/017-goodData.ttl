@@ -5,11 +5,6 @@
 @prefix foaf:   <http://xmlns.com/foaf/0.1/> .
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
         
-:UserShape a sh:NodeShape ;
-   sh:targetNode :alice, :bob, :carol ;
-   sh:property [
-    sh:path schema:name ; 
-    sh:minCount 1; 
-    sh:maxCount 1;
-    sh:datatype xsd:string ;
-  ] .
+:alice a :User;                              #%*\Passes{:UserShape} *) 
+       schema:affiliation :OurCompany .
+	   

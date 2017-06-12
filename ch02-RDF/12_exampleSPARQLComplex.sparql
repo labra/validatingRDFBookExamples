@@ -1,0 +1,12 @@
+prefix :       <http://example.org/> 
+prefix schema: <http://schema.org/> 
+prefix dbr:    <http://dbpedia.org/resource/>
+
+SELECT ?person ?known {
+ ?person schema:knows ?known .
+ { SELECT ?person (count(*) as ?countKnown) {
+    ?person schema:knows ?known .
+  } GROUP BY ?person
+ }
+ FILTER (?countKnown = 1)
+}

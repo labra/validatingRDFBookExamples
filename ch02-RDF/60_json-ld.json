@@ -1,0 +1,25 @@
+{"@context": {
+   "ex": "http://example.org/", 
+   "schema": "http://schema.org/", 
+   "dbr": "http://dbpedia.org/resource/", 
+   "xsd": "http://www.w3.org/2001/XMLSchema#", 
+   "birthDate":  { "@id": "schema:birthDate", "@type": "xsd:date" },
+   "birthPlace": {"@id": "schema:birthPlace" },
+   "knows":      {"@id": "schema:knows" }
+  },
+ "@graph": [
+    { "@id": "ex:alice",
+     "knows": {"@id": "ex:bob" }
+    },
+    {"@id": "ex:bob", 
+     "name": "Robert",
+     "knows": {"@id": "ex:carol"},
+     "birthDate": "1980-03-10",
+     "birthPlace": {"@id": "dbr:Oviedo" }
+    },
+    { "@id": "ex:carol",
+     "knows": [{"@id": "ex:alice" }, {"@id": "ex:bob"}],
+     "birthPlace": {"@id": "dbr:Oviedo" }
+    }
+ ]
+}

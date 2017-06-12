@@ -1,19 +1,23 @@
-prefix :       <http://example.org/> 
-prefix sh:     <http://www.w3.org/ns/shacl#> 
-prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
-prefix schema: <http://schema.org/>
-prefix foaf:   <http://xmlns.com/foaf/0.1/>
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
         
-:alice a :User;
+
+:alice a :User;                               #%*\Passes{:UserShape} *) 
        schema:name    "Alice" ;
        schema:follows [ schema:name "Dave" ] .
 	   
-:bob   a :User;
+:bob   a :User;                               #%*\Fails{:UserShape} *) 
        schema:name  _:1 ;
        schema:follows :alice .
 	   
-:carol a :User;
+:carol a :User;                               #%*\Fails{:UserShape} *)    
        schema:name    "Carol" ;
        schema:follows "Dave"  .
 
-_:1 a :User .
+_:1 a :User .                                 #%*\Fails{:UserShape} *) 
+
+

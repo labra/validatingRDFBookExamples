@@ -1,0 +1,17 @@
+<div xmlns:schema="http://schema.org/" 
+xmlns:e="http://www.example.org/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     typeof="schema:Person"
+     about="[e:alice]">
+My name is <span property="schema:name">Alice</span>. 
+<p>I was born on   
+   <span property="schema:birthDate" 
+         content="1974-12-01"
+         datatype="xsd:date">1st december, 1974</span> 
+   and I am a professor at the
+  <span about="[e:uniovi]" 
+	  typeof="schema:Organization"
+	  property="schema:name"
+	  rel="schema:member" resource="[e:alice]">University of Oviedo</span>
+</p>
+</div>

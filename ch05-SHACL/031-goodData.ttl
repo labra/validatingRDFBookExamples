@@ -5,8 +5,10 @@ prefix schema: <http://schema.org/>
 prefix sh:     <http://www.w3.org/ns/shacl#> 
 prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
         
-:bob   a :User;
-       schema:worksFor :Another .
+:alice a :User;
+       schema:worksFor :OurCompany .
 	   
-:Another 
-    schema:name 23 .
+:OurCompany 
+    schema:name "OurCompany" ;
+	schema:employee :alice .
+

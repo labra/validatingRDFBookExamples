@@ -5,10 +5,10 @@
 @prefix foaf:   <http://xmlns.com/foaf/0.1/> .
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
         
-:alice schema:name "Alice Cooper" .
+:alice a :User;                              #%*\Passes{:UserShape} *) 
+       schema:affiliation :OurCompany .
 	   
-:bob   foaf:name "Bob" .
-	   
-:carol schema:name 23 .
+:bob   a :User;                              #%*\Fails{:UserShape} *) 
+       schema:affiliation :Unknown .
 
-:dave schema:name 45 .
+:carol a :User .                             #%*\Fails{:UserShape} *) 

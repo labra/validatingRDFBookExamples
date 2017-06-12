@@ -1,0 +1,53 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <http://www.example.org/> .
+
+:Person a sh:NodeShape;
+ sh:targetClass :Person ;
+ sh:xone (
+   [ sh:property [ sh:path schema:name;  
+      sh:minCount 1; sh:maxCount 1 
+     ] 
+   ]
+   [ sh:node [ a sh:NodeShape;
+      sh:property [ sh:path schema:givenName; 
+        sh:minCount 1; sh:maxCount 1
+      ] ;
+      sh:property [ sh:path schema:familyName; 
+       sh:minCount 1; sh:maxCount 1
+      ] ; 
+   ] 
+  ] 
+ ) .
+ 
+:NotPerson a sh:NodeShape, rdfs:Class ;
+ sh:not :Person . 
+ 
+:alice a :Person; 
+  schema:name "Alice" ;
+  . 
+  
+:bad1 a :NotPerson; 
+  schema:name "Bad1" ;
+  schema:givenName "Bad1";
+  schema:familyName "Bad" 
+  .  
+  
+:bad2 a :NotPerson; 
+  schema:name "Bad1" ;
+  schema:givenName "Bad2";
+  .  
+  
+:bad3 a :NotPerson; 
+  .  
+  
+:bob a :Person; 
+  schema:givenName "Robert" ;
+  schema:familyName "Smith"
+  .      
+  

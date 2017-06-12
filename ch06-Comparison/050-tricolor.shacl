@@ -1,0 +1,46 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix :       <http://example.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+
+:TricolorFlag a sh:NodeShape;
+  sh:targetClass :TricolorFlag ;
+  sh:property :HasDarkColor ;
+  sh:property :HasLightColor ;
+  sh:property :HasGreenComponentColor ;
+  sh:property [ 
+   sh:path :color ;
+   sh:minCount 3;
+   sh:maxCount 3
+  ] .
+
+:HasDarkColor sh:path :color ; 
+   sh:qualifiedValueShape :IsDark ;
+   sh:qualifiedMinCount 1 ;
+   sh:qualifiedValueShapesDisjoint true ;
+  .
+
+:IsDark sh:path :isDark ;
+  sh:hasValue true .
+
+:IsLight sh:path :isLight ;
+  sh:hasValue true .
+
+
+:HasLightColor sh:path :color ; 
+   sh:qualifiedValueShape :IsLight ;
+   sh:qualifiedMinCount 1 ;
+   sh:qualifiedValueShapesDisjoint true ;
+  .
+
+:HasGreenComponentColor sh:path :color ; 
+   sh:qualifiedValueShape [
+      sh:path :hasGreenComponent ;
+      sh:hasValue true 
+     ] ;
+   sh:qualifiedMinCount 1 ;
+ .

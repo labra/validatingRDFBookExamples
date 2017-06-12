@@ -1,0 +1,33 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+
+:alice a :User;                          #%*\Passes{:UserShape} *)   
+       schema:parent :bob, :carol .
+
+:bob   a :User ;                         #%*\Passes{:UserShape} *)   
+       :isMale true ;
+       schema:parent [ :isMale true ] ;
+       schema:parent [ :isFemale true ] .
+
+:carol :isFemale true .
+ 
+:dave a :User ;                          #%*\Fails{:UserShape} *)
+      schema:parent :emily, :frank .
+
+:emily a :User .                         #%*\Fails{:UserShape} *)
+
+:frank :isFemale true .    
+
+:xxx a :User ;                           #%*\Pass{:UserShape} *)
+       schema:parent [ :isMale true ] ;
+       schema:parent [ :isFemale true ];
+       schema:parent :xx .
+
+:oscar a :User ;            #%*\Pass{:UserShape} *)
+   schema:parent :strange .
+
+:strange :isMale true;
+  :isFemale true .
