@@ -19,8 +19,10 @@
  .
  
 :Teacher rdfs:subClassOf :Person .
-:SubTeacher rdfs:subClassOf :Person . 
+:Assistant rdfs:subClassOf :Teacher .
+:Both rdfs:subClassOf :Person ;
+  rdfs:subClassOf :Teacher .
  
+:Assistant a :DirectPersonSubClass .
 :Teacher a :DirectPersonSubClass .
-:SubTeacher a :DirectPersonSubClass .
- 
+:Both a :DirectPersonSubClass .

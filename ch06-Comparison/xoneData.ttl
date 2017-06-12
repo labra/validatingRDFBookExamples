@@ -1,0 +1,13 @@
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix schema: <http://prefix.cc/schema> 
+prefix : <http://prefix.cc/schema> 
+
+:alice foaf:firstName "Alice" ; foaf:lastName "Cooper" .
+
+:bob schema:givenName "Robert" ; schema:familyName "Smith" .
+
+:carol foaf:firstName "Carol" ; foaf:lastName "King" ;
+       schema:givenName "Carol" ; schema:familyName "King" .
+
+:dave foaf:firstName "Dave" ; foaf:lastName "Clark" ;
+      foaf:givenName "Dave" .

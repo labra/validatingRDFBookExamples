@@ -10,10 +10,22 @@
 :Person a sh:NodeShape;
  sh:targetClass :Person ;
  sh:xone (
-   [ sh:property [ sh:path schema:name;  
-      sh:minCount 1; sh:maxCount 1 
-     ] 
-   ]
+   [ sh:node [ a sh:NodeShape;
+     sh:property [ sh:path foaf:firstName; 
+        sh:minCount 1; sh:maxCount 1
+      ] ;
+      sh:property [ sh:path foaf:lastName; 
+       sh:minCount 1; sh:maxCount 1
+      ] ; 
+   ]] 
+  [ sh:node [ a sh:NodeShape;
+      sh:property [ sh:path foaf:givenName; 
+        sh:minCount 1; sh:maxCount 1
+      ] ;
+      sh:property [ sh:path foaf:familyName; 
+       sh:minCount 1; sh:maxCount 1
+      ] ; 
+   ]] 
    [ sh:node [ a sh:NodeShape;
       sh:property [ sh:path schema:givenName; 
         sh:minCount 1; sh:maxCount 1
@@ -28,26 +40,17 @@
 :NotPerson a sh:NodeShape, rdfs:Class ;
  sh:not :Person . 
  
-:alice a :Person; 
-  schema:name "Alice" ;
-  . 
-  
-:bad1 a :NotPerson; 
-  schema:name "Bad1" ;
-  schema:givenName "Bad1";
-  schema:familyName "Bad" 
-  .  
-  
-:bad2 a :NotPerson; 
-  schema:name "Bad1" ;
-  schema:givenName "Bad2";
-  .  
-  
-:bad3 a :NotPerson; 
-  .  
-  
-:bob a :Person; 
-  schema:givenName "Robert" ;
-  schema:familyName "Smith"
-  .      
+:alice a :Person ;
+  foaf:firstName "Alice" ; foaf:lastName "Cooper" .
+
+:bob a :Person ;
+  schema:givenName "Robert" ; schema:familyName "Smith" .
+
+:carol a :NotPerson ;
+  foaf:firstName "Carol" ; foaf:lastName "King" ;
+  schema:givenName "Carol" ; schema:familyName "King" .
+
+:dave a :Person;  # Passes but should fail
+  foaf:firstName "Dave" ; foaf:lastName "Clark" ;
+  foaf:givenName "Dave" .  
   
