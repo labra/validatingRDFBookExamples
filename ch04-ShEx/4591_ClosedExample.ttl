@@ -1,0 +1,13 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+prefix org:    <http://www.w3.org/ns/org#>
+
+:alice schema:name "Alice" ;  #%*\Passes{:User1 and :User2} *)
+       schema:knows :bob .
+ 
+:bob schema:name "Bob" ;     #%*\Passes{:User1} *)
+     schema:knows :alice ;   #%*\Fails{:User2} *)
+     :link2virus <virus> .   # unexpected :link2virus

@@ -1,0 +1,15 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+prefix org:    <http://www.w3.org/ns/org#>
+
+:alice schema:follows :carol .         #%*\Passes{:FollowSpaniards} *)
+
+:bob schema:follows :carol, :emily .   #%*\Passes{:FollowSpaniards} *)
+
+:carol schema:follows :emily .         #%*\Fails{:FollowSpaniards} *) 
+
+:david schema:nationality :Spain .       
+:emily schema:nationality :France .

@@ -1,0 +1,56 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix codes: <http://example.codes/>
+@prefix other: <http://example.other/>
+
+:StemConstraintComponent
+	a sh:ConstraintComponent ;
+	sh:parameter [ sh:path :stem  ] ;
+	sh:validator [ a sh:SPARQLAskValidator ;
+     sh:message "Value does not have stem {$stem}" ;
+      sh:ask """
+     		ASK {
+     			FILTER (!isBlank($value) &&
+     				strstarts(str($value),str($stem)))
+     		}"""
+	] .
+
+
+:Product a sh:NodeShape, rdfs:Class ;
+    sh:property [ sh:path :status; sh:minCount 1; sh:maxCount 1] ;
+  	sh:or (
+	 [ sh:path :status; :stem <http://example.codes/good.> ]
+	 [ sh:path :status; :stem codes:bad ]
+	) .
+	
+:NotProduct a sh:NodeShape, rdfs:Class ; sh:not :Product . 	
+
+:p1 a :Product ; :status codes:good.Shipped .
+	
+:p2 a :Product ; :status codes:bad.Lost .
+	
+:p3 a :NotProduct ; :status other:bad.Lost .
+
+:p4 a :NotProduct ; :status other:bad.Lost; :status codes:good.Ready .
+
+:p5 a :NotProduct ; :status codes:goodLost .
+
+
+:Employee a sh:NodeShape ;
+ sh:targetClass :Employee ;
+ sh:property [
+  sh:path :homePage ;
+  :stem <http://company.com/>
+ ] .
+ 
+:NotEmployee a sh:NodeShape, rdfs:Class ; sh:not :Employee . 
+
+:alice a :Employee ;
+ :homePage <http://company.com/C1> .
+
+:bob a :NotEmployee ;
+ :homePage <http://unknown.com/C1> .

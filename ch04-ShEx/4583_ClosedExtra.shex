@@ -1,0 +1,11 @@
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+prefix org:    <http://www.w3.org/ns/org#>
+
+:KnowsW3cPeople CLOSED EXTRA schema:knows {
+ schema:name  xsd:string;
+ schema:affiliation IRI ? ;
+ schema:knows { schema:affiliation [:W3c] }+
+}

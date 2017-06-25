@@ -6,5 +6,5 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
  schema:name          xsd:string  ;
  schema:birthDate     xsd:date?  ;
  schema:gender        [ schema:Male schema:Female ];
- schema:knows         @:User*
+ schema:knows         IRI @:User*
 }

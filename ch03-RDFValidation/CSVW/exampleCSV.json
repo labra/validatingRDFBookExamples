@@ -1,0 +1,20 @@
+{ "fields": [ {
+   "name": "Name",
+   "constraints": { "required": true, "unique": true }
+ },
+ { "name": "Gender",
+   "constraints": { "required": true }
+ },
+ { "name": "Age",
+   "constraints": { 
+     "type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+	 "minimum": 0,
+	 "null": "?"
+ }},
+ { "name": "BirthDate",
+   "constraints":{ 
+     "type": "http://www.w3.org/2001/XMLSchema#date",
+	 "null": "?"
+   }
+ }] 
+}

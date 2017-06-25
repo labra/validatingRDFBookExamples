@@ -1,10 +1,12 @@
-{ "students": [
+{ "name": "Algebra" ,
+  "students": [
   { "name": "Alice",
-    "gender": "Female"
+    "gender": "Female",
+    "age": 18
    },
   { "name": "Robert",
     "gender": "Male",
-    "age": "1981-09-24"
+    "birthDate": "1981-09-24"
    }
  ]
 }

@@ -1,0 +1,50 @@
+@prefix :      <http://example.org/> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix org:   <http://www.w3.org/ns/org#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix cex:   <http://purl.org/weso/ontology/computex#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix wf:    <http://data.webfoundation.org#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+
+<> owl:imports <webindexShapes.ttl> .
+
+:slice1  a                 qb:Slice ;
+        qb:observation     :obs1 ;
+        qb:sliceStructure  wf:sliceByYear ;
+        cex:indicator      :indicator1 .
+
+:org1   a              org:Organization ;
+        rdfs:label     "org1" ;
+        foaf:homepage  :homepageOrg1 .
+
+:country1  rdfs:label  "country1" ;
+        wf:iso2     "c1" .
+
+:indicator1  a       wf:SecondaryIndicator ;
+        rdfs:label   "indicator1" ;
+        wf:provider  :org1 .
+
+:dataSet1  a           qb:DataSet ;
+        rdfs:label     "dataSet1" ;
+        dct:publisher  :org1 ;
+        qb:slice       :slice1 ;
+        qb:structure   wf:DSD .
+
+:obs1   a              wf:Observation , qb:Observation ;
+        rdfs:label     "obs1" ;
+        wf:source      :source1 ;
+        dct:issued     "2015-05-30T09:00:00"^^xsd:dateTime ;
+        qb:dataSet     :dataSet1 ;
+        cex:indicator  :indicator1 ;
+        cex:ref-area   :country1 ;
+        cex:value      "0.2536705"^^xsd:float .
+
+:Country sh:targetNode :country1 .		
+:Organization  sh:targetNode  :org1 .
+:DataSet  sh:targetNode  :dataSet1 .

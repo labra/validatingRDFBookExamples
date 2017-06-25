@@ -1,0 +1,16 @@
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+
+:p1 schema:productId "P1" ;           #%*\Passes{:Product} *)
+    schema:isRelatedTo :p2, :p3 .
+
+:p2 schema:productId "P2" .           #%*\Passes{:Product} *)
+
+:p3 schema:productId "P3";            #%*\Passes{:Product} *)
+    schema:isRelatedTo :p1 ;
+    schema:isSimilarTo :p2 .
+
+:p4 schema:productId "P4" ;           #%*\Fails{:Product} *) 
+    schema:isRelatedTo :p1, :p2, :p3 .

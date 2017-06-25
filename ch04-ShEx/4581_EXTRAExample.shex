@@ -1,0 +1,13 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+prefix org:    <http://www.w3.org/ns/org#>
+
+:FollowSpaniards1 { 
+ schema:follows { schema:nationality [:Spain] }+
+}
+
+:FollowSpaniards2 EXTRA schema:follows { 
+ schema:follows { schema:nationality [:Spain] }+
+}

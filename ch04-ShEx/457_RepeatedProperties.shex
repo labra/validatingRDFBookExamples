@@ -1,0 +1,11 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix : <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:User {
+ schema:name   xsd:string;
+ :parent { schema:gender [schema:Male ] } ;
+ :parent { schema:gender [schema:Female ] } ;
+}

@@ -1,0 +1,14 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix : <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+
+:alice :parent :bob, :carol .  #%*\Passes{:Grandson} *)
+       
+:bob   :parent :dave.          #%*\Passes{:Grandson} *)
+       
+:carol :parent :emily .        #%*\Fails{:Grandson} *)
+      
+:dave  :parent :grace .        #%*\Fails{:Grandson} *)
+
+:emily schema:name "Emily" .   #%*\Fails{:Grandson} *)

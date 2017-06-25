@@ -1,0 +1,21 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:p1 schema:productId "P1" .              #%* \Passes{:Product} *)
+
+:p2 schema:productId "P2", "C2".         #%* \Passes{:Product} *) 
+
+:p3 schema:productId "P3", "C3", "X3" .  #%* \Fails{:Product} *) 
+                                         #%* Cardinality exceeded *) 
+
+:p4 schema:name "No Id" .                #%* \Fails{:Product} *) 
+                                         #%* No schema:productId *) 
+
+:p5 schema:productId 5 .                 #%* \Fails{:Product} *) 
+                                         #%* xsd:string not satisfied *) 
+
+:p6 schema:productId "P6", 5  .          #%* \Fails{:Product} *) 
+                                         #%* xsd:string not satisfied *)
