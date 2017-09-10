@@ -1,0 +1,14 @@
+prefix schema: <http://schema.org/> 
+prefix ex:    <http://example.org/> 
+prefix dbr:   <http://dbpedia.org/resource/> 
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#> 
+
+ex:alice schema:knows  ex:bob .
+
+ex:bob schema:name        "Robert" ;
+       schema:birthDate   "1980-03-10"^^xsd:date ;
+       schema:birthPlace  dbr:Oviedo ;
+       schema:knows       ex:carol .
+		
+ex:carol schema:birthPlace  dbr:Oviedo ;
+         schema:knows       ex:bob , ex:alice .

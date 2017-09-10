@@ -1,0 +1,45 @@
+@prefix :       <http://example.org/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+
+<> a owl:Ontology .
+
+:Man  a owl:Class ;
+ owl:equivalentClass  [
+  owl:intersectionOf (
+   :Person 
+   [ a owl:Restriction ;
+     owl:onProperty  schema:gender ;
+     owl:hasValue    schema:Male
+   ]
+  ) 
+ ] .
+ 
+:Woman  a owl:Class ;
+ owl:equivalentClass  [
+  owl:intersectionOf (
+   :Person 
+   [ a owl:Restriction ;
+     owl:onProperty  schema:gender ;
+     owl:hasValue    schema:Female
+   ]
+  ) 
+ ] .
+ 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( :Woman  :Man ) ] .
+
+:Person  owl:equivalentClass  [
+  rdf:type     owl:Class ;
+  owl:unionOf  ( :Woman :Man ) 
+] . 
+
+:alice a :Woman ;
+ schema:gender schema:Female .  
+:bob a :Man .
+
+:x a :Person ;
+ schema:gender :unknown .
