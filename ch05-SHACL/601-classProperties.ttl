@@ -1,0 +1,57 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc:     <http://purl.org/dc/elements/1.1/> .
+@prefix cp:     <http://example.org/classProperties/> .
+        
+:LionBookShape a sh:NodeShape;
+   sh:targetClass :LionBook ;
+   sh:property [                  # Blank node 1
+    sh:path      dc:subject ; 
+    sh:minCount  1; 
+    cp:rootClass :Lion ;
+  ] .
+
+:LionsLifeInThePrideBook
+      a       :LionBook ;
+      rdfs:seeAlso <http://isbn.nu/0736809643> ;
+      :bookTitle "Lions: Life in the Pride" ;
+      dc:subject :AfricanLion .
+	  
+:LionsLife a :LionBook ;
+      dc:subject :Lion .
+	  
+:AfricanLion     rdfs:subClassOf :Lion .
+:SenegalesseLion rdfs:subClassOf :AfricanLion .
+
+:MobyDick a :LionBook ;   # Should fail
+   dc:subject :Whale .
+
+:A a :LionBook ;          # Should fail 
+   dc:subject "a" .
+   
+:B a :LionBook .          # Should fail (no dc:subject)
+
+:SenegalesLionsBook a :LionBook ;
+   dc:subject :SenegalesseLion .
+   
+:ClassesAsPropertiesConstraint
+ a sh:ConstraintComponent ;
+ sh:parameter [ sh:path cp:rootClass ] ;
+ sh:propertyValidator :classAsPropertiesValidator .
+ 
+:classAsPropertiesValidator a sh:SPARQLAskValidator ;
+  sh:message "Must be rdfs:subClassOf {$rootClass}" ;
+  sh:prefixes [ 
+    sh:declare [ 
+      sh:prefix "rdfs" ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"
+   ] ;
+  ] ;
+ sh:ask """
+  ASK {
+   $value rdfs:subClassOf* $rootClass
+  } 
+  """ .	  

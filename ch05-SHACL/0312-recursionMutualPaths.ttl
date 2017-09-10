@@ -1,0 +1,92 @@
+@prefix :       <http://example.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema: <http://schema.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+:User a sh:NodeShape ;
+ sh:property [ sh:path [
+   sh:zeroOrMorePath (schema:worksFor schema:employee) 
+  ];
+  sh:node :UserStructure 
+ ] ;
+ sh:property [
+   sh:path schema:worksFor ;
+   sh:node :CompanyStructure 
+ ]  .
+ 
+:UserStructure a sh:NodeShape;
+  sh:property [
+   sh:path schema:name ; 
+   sh:datatype xsd:string ;
+   sh:minCount 1; sh:maxCount 1;
+  ] ;
+  sh:property [
+   sh:path schema:birthDate ; 
+   sh:datatype xsd:date ;
+   sh:maxCount 1 ;
+  ]  .
+
+:Company a sh:NodeShape ;
+ sh:property [ sh:path [
+   sh:zeroOrMorePath (schema:employee schema:worksFor) 
+  ];
+  sh:node :CompanyStructure 
+ ] ;
+ sh:property [
+   sh:path schema:employee ; 
+   sh:node :UserStructure
+ ] .
+  
+:CompanyStructure a sh:NodeShape ;
+  sh:property [
+   sh:path schema:name ; 
+   sh:datatype xsd:string ;
+   sh:minCount 1; sh:maxCount 1
+  ] .
+
+:alice schema:name     "Alice" ;     #%*\Passes{:User} *) 
+       schema:worksFor :company1 .  
+
+:bob   schema:name     "Robert" ;    #%*\Passes{:User} *) 
+       schema:worksFor :company1 .  
+
+:carol schema:name     34 ;          #%*\Fails{:User} *) 
+       schema:worksFor :company2 .  #%* Wrong datatype for schema:name *)
+	   
+:dave  schema:name     "Dave" ;      #%*\Fails{:User} *) 
+       schema:worksFor :company2 .	 #%* :company2 does not conform to :Company *)  
+	   
+:emily schema:name     "Emily" ;     #%*\Fails{:User} *) 
+       schema:worksFor :company3 .	 #%* :company3 does not conform to :Company *)  
+	   
+:frank schema:name     "Frank" ;     #%*\Fails{:User} *) 
+       schema:worksFor :company4 .	 #%* :company3 does not conform to :Company *)  
+	   
+:company4 schema:name     "Four" ;
+          schema:employee :alice .	   
+	   
+
+:company1 schema:name     "One" ;    #%*\Passes{:Company} *)  
+          schema:employee :alice, 
+		                  :bob .
+
+:company2 schema:name     2 ;        #%*\Fails{:Company} *) 
+          schema:employee :alice .   #%* Wrong datatype for schema:name *)
+		  
+:company3 schema:name     "Three" ;  #%*\Fails{:Company} *) 
+          schema:employee :carol .   #%* :carol does not conform to :User *)  
+		   
+ 
+:User sh:targetNode :alice .
+:User sh:targetNode :bob .
+:User sh:targetNode :carol .
+:User sh:targetNode :dave .
+:User sh:targetNode :emily .
+:User sh:targetNode :frank .
+
+:Company sh:targetNode :company1 .
+:Company sh:targetNode :company2 . 
+:Company sh:targetNode :company3 . 
+ 

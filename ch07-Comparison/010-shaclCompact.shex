@@ -1,0 +1,440 @@
+:User {
+ minLength = :unknown ;
+ maxLength = [ true 1 ] ;
+}
+
+<> owl:imports <http://example.org/UserShapes> 
+
+:TeacherShape a sh:NodeShape;
+   sh:targetClass :Teacher ;
+   sh:node :UserShape ;
+   sh:property [     
+    sh:path :teaches ; 
+    sh:minCount 1; 
+    sh:datatype xsd:string;
+  ] ;
+
+
+owl:imports 
+
+:Product {
+ :code xsd:string ;
+ :code xsd:integer
+}
+
+:p1 :code "P123" ;
+    :code 123 .
+	
+sh:uniqueLang
+
+:UserShape {                                 # Not supported in ShEx 2.0
+ $<givenName> schema:givenName xsd:string ;
+ $<firstName> schema:firstName xsd:string ;
+ $<birthDate> schema:birthDate xsd:date ;
+ $<loginDate> :loginDate xsd:date ;
+ $<givenName> =  $<firstName> ;
+ $<givenName> != $<lastName> ;
+ $<birthDate> <  $<loginDate>
+}
+	
+:UserShape a sh:NodeShape ;
+ sh:property [
+   sh:path schema:givenName ;
+   sh:datatype xsd:string ;
+   sh:disjoint schema:lastName
+ ] ;
+ sh:property [
+   sh:path foaf:firstName ;
+   sh:equals schema:givenName ;
+ ] ;
+ sh:property [
+   sh:path schema:birthDate ;
+   sh:datatype xsd:date ;
+   sh:lessThan :loginDate
+ ] .	
+	
+:User a sh:NodeShape, rdfs:Class ;
+  sh:targetClass :Person ;
+  sh:targetNode  :alice ;
+  sh:nodeKind    sh:IRI ;
+  sh:property [
+   sh:path     schema:name ;
+   sh:datatype xsd:string 
+  ] .
+
+:UserShape {                                 # Not supported in ShEx 2.0
+ schema:givenName xsd:string ;
+ schema:lastName xsd:string ;
+ UNIQUE(schema:givenName, schema:lastName)
+}
+
+:Country a sh:NodeShape, rdfs:Class ;
+ sh:property [
+  sh:path schema:name ;
+  sh:uniqueLang true 
+] . 
+sh:and 
+
+:User  a     sx:Shape ;
+    sx:expression [ a   sx:EachOf ;
+    sx:expressions ( 
+	 [ a sx:TripleConstraint ;
+       sx:predicate schema:productId ;
+       sx:valueExpr [ a  sx:NodeConstraint ; sx:pattern "^[A-R]" ]]
+	 [ a  sx:TripleConstraint ;
+       sx:predicate schema:productId ;
+       sx:valueExpr [ a  sx:NodeConstraint ; sx:pattern "^[M-Z]" ]]
+     [ a  sx:TripleConstraint ;
+       sx:min 0; sx:max -1; 
+       sx:predicate schema:brand ;
+       sx:valueExpr [ a sx:ShapeAnd ;
+                      sx:expressions 
+                      ( [ a sx:NodeConstraint; sx:nodeKind sx:iri ]
+                        :Organization ) ] ]
+     [ a  sx:TripleConstraint ;
+       sx:min 0 ; sx:max 1 ;
+       sx:predicate schema:purchaseDate ;
+       sx:valueExpr [ a       sx:NodeConstraint ;
+                      sx:datatype xsd:date ]
+     ]
+)] .
+
+:User a sh:NodeShape ;
+  sh:property [ sh:path schema:name ;
+   sh:minCount 1; sh:maxCount 1;
+   sh:datatype xsd:string
+  ];
+  sh:property [ sh:path schema:birthDate ;
+   sh:maxCount 1;
+   sh:datatype xsd:date
+  ] .
+  
+:Product {
+ :code IRI ;
+ :code xsd:integer
+}
+  
+rdf:type rdfs:Class rdfs:subClassOf 
+
+:Teacher rdfs:subClassOf :User .
+:teaches rdfs:domain :Teacher .
+:title rdfs:subPropertyOf schema:name
+
+:alice a :Teacher ; schema:name 23 .  
+
+:bob   :teaches :Algebra ; schema:name 34 . 
+
+:carol :teaches :Logic; schema:name "King" .
+
+:dave a :Teacher; :title "Dave" .
+   
+:emily :teaches :Logic; :title "Dave" .
+owl:imports
+:Product { 
+  rdfs:label xsd:string
+}
+
+:Product a sh:NodeShape, rdfs:Class ;
+  sh:property [ sh:path rdfs:label ;
+   sh:datatype xsd:string
+  ] .
+
+:SoldProduct a sh:NodeShape, rdfs:Class ;
+  sh:and (
+   :Product
+   [ sh:path rdfs:label ;
+     sh:pattern "^[A-Z]"
+   ]
+   [ sh:path :dateSold ;
+     sh:datatype xsd:date
+   ]
+  ) .
+
+:Product a sh:NodeShape, rdfs:Class ;
+  sh:property [ sh:path schema:productId ;
+   sh:datatype xsd:string
+  ];
+  sh:property [ sh:path schema:price ;
+     sh:datatype xsd:decimal
+  ].
+
+:Person a sh:NodeShape ;
+ sh:Property [
+  sh:path schema:name ;
+  sh:datatype xsd:string ;
+  sh:name "Name" ;
+  sh:description "Name of person" 
+  rdfs:label "Name";
+ ] .
+ 
+:Person {
+ // rdfs:label "Name" 
+ // rdfs:comment "Name of person"
+ schema:name xsd:string ;
+}
+
+  
+  
+:Product a sh:NodeShape, rdfs:Class ;
+  sh:property [ sh:path schema:productId ;
+   sh:datatype xsd:string
+  ];
+  sh:property [ sh:path schema:price ;
+     sh:datatype xsd:decimal
+  ].
+
+:SoldProduct a sh:NodeShape, rdfs:Class ;
+  rdfs:subClassOf :Product ;
+  sh:property [ sh:path schema:productId ;
+     sh:pattern "^[A-Z]"
+   ] ;
+  sh:property [ sh:path schema:purchaseDate ;
+     sh:datatype xsd:date
+  ] .
+  
+
+
+:SoldProduct @:Product AND {
+ :dateSold xsd:date ;
+ rdfs:label /^[A-Z]/
+}
+
+:User a sx:ShapeAnd ;
+   sx:shapeExprs ( 
+   [ a sx:NodeConstraint ; sx:nodeKind sx:iri ]
+   [ a sx:Shape; 
+     sx:expression [ 
+      a sx:EachOf ;
+      sx:expressions (
+      [ a sx:TripleConstraint ;
+        sx:predicate schema:name ;
+        sx:valueExpr [ a sx:NodeConstraint ; sx:datatype xsd:string ]
+      ]
+      [ sx:predicate schema:birthDate ;
+        sx:valueExpr [ a sx:NodeConstraint ; sx:datatype xsd:date ] ;
+        sx:min 0
+      ]
+      [ a sx:TripleConstraint ;
+        sx:predicate schema:gender ;
+        sx:valueExpr [ a sx:NodeConstraint ; 
+          sx:values ( schema:Male schema:Female ) 
+        ]
+      ] ) ] ] ).
+
+
+:User a sh:NodeShape ;
+ sh:property [ sh:path schema:name ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+ ];
+ sh:property [ sh:path     schema:productId ;
+                sh:minCount 1 ; sh:maxCount 1 ;
+                sh:pattern "^[M-Z]" ;
+ ];
+ sh:property [ sh:path     schema:brand ;
+                sh:minCount 1 ;
+                sh:nodeKind sh:IRI ;
+                sh:node :Organization 
+ ];
+  sh:property [ sh:path     schema:purchaseDate ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:date 
+ ]
+.
+
+
+:User {
+ schema:name xsd:string
+}
+
+sh:entailment   
+:Country {
+ schema:name . + ;
+ UNIQUE(LANGTAG(schema:name))
+}  
+  
+:User IRI {
+ schema:name xsd:string
+}  
+
+:alice schema:givenName "Alice" ;
+       schema:lastName  "Cooper" .
+  
+:bob   schema:givenName "Bob", "Robert" ;
+       schema:lastName  "Smith", "Dylan" .
+
+:carol schema:lastName  "King", "Queen" .
+
+:dave  schema:givenName 23;  rdf:type rdfs:subClassOf rdf:Class
+       schema:lastName  :Unknown .
+	   
+:User a sh:NodeShape, rdfs:Class ;
+  sh:property [ sh:path schema:name ;
+   sh:datatype xsd:string 
+  ].
+  
+:Teacher rdfs:subClassOf :User .
+:teaches rdfs:domain :Teacher .
+
+:alice a :Teacher ; 
+       schema:name 23 .  
+
+:bob :teaches    :Algebra ;    
+     schema:name 34 .       
+	 
+:Person {
+ :parent {:gender [:Male] } ;
+ :parent {:gender [:Female] }
+}
+
+:Person a sh:NodeShape, rdfs:Class ;
+  sh:property [ sh:path :parent;
+  sh:node [ sh:property [ sh:path :gender ; sh:hasValue :Male ] ];
+  sh:node [ sh:property [ sh:path :gender ; sh:hasValue :Female ]]
+] .
+
+:Person a sh:NodeShape, rdfs:Class ;
+  sh:property [ sh:path :parent;
+    sh:node [ sh:property [ sh:path :gender ;
+     sh:hasValue :Male ; ]] ;
+     sh:minCount 1; sh:maxCount 1
+  ];
+  sh:property [ sh:path :parent;
+    sh:node [ sh:property [ sh:path :gender ;
+     sh:hasValue :Female ]];
+     sh:minCount 1; sh:maxCount 1
+  ]
+.
+
+:Person a sh:NodeShape, rdfs:Class ;
+  sh:property [ sh:path :parent;
+    sh:qualifiedValueShape [ sh:property [ sh:path :gender ;
+     sh:hasValue :Male ] ] ;
+     sh:qualifiedMinCount 1; sh:qualifiedMaxCount 1
+  ];
+  sh:property [ sh:path :parent;
+    sh:qualifiedValueShape [ sh:property [ sh:path :gender ;
+      sh:hasValue :Female ] ] ;
+    sh:qualifiedMinCount 1; sh:qualifiedMaxCount 1
+  ] ;
+  sh:property [ sh:path :parent;
+   sh:minCount 2; sh:maxCount 2
+  ]
+.
+
+:Person a sh:NodeShape, rdfs:Class ;
+ sh:property [ sh:path schema:name ;
+  sh:datatype xsd:string ];
+ sh:property [ sh:path schema:knows ;
+  sh:node :Person ];
+
+:Person a sh:NodeShape, rdfs:Class ;
+ sh:property [ sh:path schema:name ;
+  sh:datatype xsd:string ];
+ sh:property [ sh:path schema:knows ;
+  sh:node :Person ]
+.
+
+:Person a sh:NodeShape, rdfs:Class ;
+ sh:property [ sh:path schema:name ;
+  sh:datatype xsd:string ];
+ sh:property [ sh:path schema:knows ;
+  sh:class :Person ]
+.
+
+
+:alice schema:givenName "Alice" ;
+       schema:lastName "Cooper" ;
+       schema:unknown true .
+
+:Person a sh:NodeShape ;
+  sh:targetClass :Person ;
+  sh:closed true ;
+  sh:ignoredProperties ( rdf:type ) ;
+  sh:and(
+   [ sh:path schema:givenName ;
+     sh:datatype xsd:string ]
+   [ sh:path schema:lastName ;
+     sh:datatype xsd:string ]
+  ) .	
+
+:GrandSon a sh:NodeShape ;
+  sh:property [ 
+   sh:path (:parent :parent) ;
+   sh:minCount 1
+  ];
+  sh:property [ 
+   sh:path [sh:alternativePath (:father :mother) ]
+   sh:minCount 1
+  ] ;
+  sh:property [ 
+   sh:path [sh:inversePath :knows ] ]
+   sh:node :Person ;
+   sh:minCount 1
+  ] .
+  
+:GrandSon {
+ :parent { :parent . + } + 
+ (:father . | :mother .)+
+ ^:knows :Person
+}
+
+:Person CLOSED {
+   schema:name xsd:string | 
+   foaf:name xsd:string
+}
+
+
+:Person a sh:NodeShape ;
+ sh:and (
+  sh:or (
+   [ sh:path schema:name ;
+     sh:minCount 1; sh:maxCount 1 ]
+   [ sh:path foaf:name ;
+     sh:minCount 1; sh:maxCount 1 
+   ]   
+  )
+ [ sh:path :homePage ;
+   sh:nodeKind sh:IRI ]
+ ) .
+
+
+ sh:property [ sh:path [ sh:alternativePath ( schema:name foaf:name ) ] ;
+    sh:minCount 1; sh:maxCount 1;
+    sh:datatype xsd:string ] ;
+
+  
+:Person {
+ (schema:name . | foaf:name . ), 
+ schema:homePage IRI
+}
+
+:Person a sh:NodeShape;
+ sh:and (
+  [ sh:node [ sh:or (
+   [ sh:path schema:name ;
+     sh:minCount 1; sh:maxCount 1 ]
+   [ sh:path foaf:name ;
+     sh:minCount 1; sh:maxCount 1
+   ]
+  )]
+ ]
+ [ sh:path :homePage ;
+   sh:nodeKind sh:IRI ]
+ ) .
+
+
+  
+
+:Person {
+ schema:name  xsd:string ;
+ schema:knows @:Person 
+}
+
+:Product {
+ :code [ <http://company.com/> ~ ]
+} 
+
+
+
+  

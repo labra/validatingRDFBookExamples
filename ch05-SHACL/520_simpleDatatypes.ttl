@@ -1,0 +1,33 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+
+:UserShape a sh:NodeShape ;
+  sh:targetClass :User ;
+  sh:property [
+    sh:path     schema:name ; 
+    sh:datatype xsd:string
+  ] ;
+  sh:property [
+    sh:path     schema:birthDate ; 
+    sh:datatype xsd:date ;
+  ] .
+
+:alice a :User ;                                 # %* \Passes{:User} *)   
+       schema:name "Alice";              
+       schema:birthDate "1981-07-10"^^xsd:date .
+
+:bob   a :User  ;                                # %* \Fails{:User} *)  
+       schema:name "Robert" ;
+       schema:birthDate 1981 .
+
+:carol a :User ;                                 # %* \Fails{:User} *)
+       schema:name :Carol ;
+       schema:birthDate "2003-06-10"^^xsd:date .
+   
+:dave  a :User ;                                 # %* \Fails{:User} *)
+       schema:name "Dave" ;
+       schema:birthDate "Unknown"^^xsd:date .   

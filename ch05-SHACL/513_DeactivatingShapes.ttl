@@ -1,0 +1,33 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+
+<> owl:imports <http://example.org/UserShapes> .
+
+:TeacherShape  a  sh:NodeShape;
+   sh:targetClass :Teacher ;
+   sh:node        :UserShape ;
+   sh:property [     
+    sh:path      :teaches ; 
+    sh:minCount  1; 
+    sh:datatype  xsd:string;
+  ] ;
+
+:HasEmail sh:deactivated true .
+
+:alice a :Teacher ;                      #%*\Passes{:TeacherShape} *) 
+       schema:name "Alice" ;
+       schema:email <mailto:alice@example.org>;
+       :teaches "Logic" .
+
+:bod   a :Teacher ;                      #%*\Passes{:TeacherShape} *) 
+       schema:name "Robert" ;
+       schema:email "This email is not an IRI";
+       :teaches "Algebra" .
+
+:carol a :Teacher ;                      #%*\Fails{:TeacherShape} *)   
+       schema:name 23 ;
+       :teaches "Logic" .

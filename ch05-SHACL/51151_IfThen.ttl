@@ -1,0 +1,50 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+
+#:Product ( 
+#  NOT  { a [ schema:Vehicle ] } OR 
+#       { schema:vehicleEngine . ;
+#        schema:fuelType .
+#       }
+
+:Product a sh:NodeShape ;
+  sh:or (
+    [ sh:not [ a sh:NodeShape ;
+               sh:property [ sh:path     rdf:type ;
+	                         sh:hasValue schema:Vehicle
+               ]
+	         ]
+    ]			 
+    [ sh:and (
+       [ sh:path     schema:vehicleEngine ;
+	     sh:minCount 1; 
+		 sh:maxCount 1
+       ]
+       [ sh:path     schema:fuelType ;
+	     sh:minCount 1; 
+		 sh:maxCount 1
+       ] 
+	   )
+    ]
+  ) .
+ 
+:p1 a :Book;                   #%*\Passes{:ProductShape} *)
+    schema:productId "P1" .
+
+:p2 a schema:Vehicle ;         #%*\Passes{:ProductShape} *)
+    schema:productId "P2" ;
+    schema:fuelType "Gasoline" ;
+    schema:vehicleEngine "X2" .
+
+:p3 a schema:Vehicle ;         #%*\Fails{:ProductShape} *)
+    schema:productId "P3" .
+
+:Product sh:targetNode :p1 .
+:Product sh:targetNode :p2 .  
+:Product sh:targetNode :p3 .

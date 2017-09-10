@@ -1,0 +1,59 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <http://www.example.org/> .
+
+:PersonShape a sh:NodeShape;    
+ sh:targetClass :Person ;
+ sh:xone (
+ [ sh:property [ 
+    sh:path foaf:firstName; 
+    sh:minCount 1; sh:maxCount 1 
+   ] ;
+   sh:property [ 
+    sh:path foaf:lastName;  
+    sh:minCount 1; sh:maxCount 1 
+   ] ; 
+ ] 
+ [ sh:property [ 
+    sh:path foaf:givenName; 
+    sh:minCount 1; sh:maxCount 1 
+   ] ;
+   sh:property [ 
+    sh:path foaf:familyName; 
+    sh:minCount 1; sh:maxCount 1 
+   ] ; 
+ ] 
+ [ sh:property [ 
+    sh:path schema:givenName; 
+    sh:minCount 1; sh:maxCount 1 
+   ] ;
+   sh:property [ 
+    sh:path schema:familyName; 
+    sh:minCount 1; sh:maxCount 1 
+   ] ; 
+ ] 
+) .
+
+:alice a :Person;
+       foaf:firstName "Alice" ;    #%*\Passes{:Person} *)
+       foaf:lastName "Cooper" .
+
+:bob a :Person; 
+     schema:givenName "Robert" ;   #%*\Passes{:Person} *)
+     schema:familyName "Smith" .
+
+:carol a :Person ;
+       foaf:firstName "Carol" ;    #%*\Fails{:Person} *)
+       foaf:lastName "King" ;
+       schema:givenName "Carol" ; 
+       schema:familyName "King" .
+       
+:dave a :Person ;
+      foaf:firstName "Dave" ;      #%*\Fails{:Person} *)
+      foaf:lastName "Clark" ;
+      schema:givenName "Dave" .

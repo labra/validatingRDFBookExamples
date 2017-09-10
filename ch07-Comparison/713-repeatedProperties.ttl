@@ -1,0 +1,19 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix : <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:alice   a :Person; 
+         schema:parent :bob ;    #%* \Passes{:Person in ShEx} *)
+         schema:parent :carol .  #%* \Fails{:Person in SHACL} *)
+
+:bob     :isMale   true .
+:carol   :isFemale true .
+
+:dave    a :Person ;
+         schema:parent :x .      #%* \Fails{:Person in ShEx} *)
+                                 #%* \Passes{:Person in SHACL} *)
+
+:x       :isMale   true ;
+         :isFemale true .

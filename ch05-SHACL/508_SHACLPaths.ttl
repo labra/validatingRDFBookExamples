@@ -1,0 +1,34 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+        
+:UserShape a sh:NodeShape;
+ sh:targetClass :User ;
+ sh:property [
+   sh:path     [sh:alternativePath (schema:knows schema:follows)] ; 
+   sh:nodeKind sh:IRI ;
+   sh:minCount 1
+ ] ;
+ sh:property [
+   sh:path     ([sh:oneOrMorePath schema:knows] schema:email) ;
+   sh:nodeKind sh:IRI 
+ ].
+
+:alice a              :User ;                 #%*\Passes{:UserShape} *)
+       schema:follows <mailto:alice@mail.org>;
+       schema:knows   :bob, :carol .
+
+:bob   schema:email <mailto:bob@mail.org>;    
+       schema:knows :carol .
+
+:carol schema:email <mailto:carol@mail.org> .  
+
+:dave  a :User ;                              #%*\Fails{:UserShape} *)
+       schema:knows <mailto:dave@mail.org> ;
+       schema:knows :carol, :emily .
+
+:emily schema:email "Unknown" .
+ 

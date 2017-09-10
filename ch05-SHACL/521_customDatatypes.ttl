@@ -1,0 +1,26 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix cdt:    <http://custom.data.type/#> .
+
+:PictureShape a sh:NodeShape ;
+  sh:targetClass :Picture ;
+  sh:property [
+   sh:path       schema:width ;
+   sh:datatype   cdt:distance 
+  ] ;
+  sh:property [
+   sh:path       schema:height ;
+   sh:datatype   cdt:distance 
+  ] .
+
+:gioconda a             :Picture ;              # %* \Passes{:PictureShape} *)  
+          schema:width  "21 in"^^cdt:distance ;
+          schema:height "30 in"^^cdt:distance .
+
+:other    a             :Picture ;              # %* \Fails{:PictureShape} *)  
+          schema:width  "21 in"^^xsd:string ;
+          schema:height 30 .

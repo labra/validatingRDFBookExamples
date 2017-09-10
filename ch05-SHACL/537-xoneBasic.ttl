@@ -1,0 +1,37 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <http://www.example.org/> .
+
+:UserShape a sh:NodeShape ;
+  sh:targetClass :User ;
+  sh:xone (
+   [ sh:property [ 
+      sh:path foaf:name;
+      sh:minCount 1;
+     ]
+   ]
+   [ sh:property [ 
+      sh:path schema:name;
+      sh:minCount 1;
+     ]
+   ]
+  ) .
+
+:alice a :User ;              #%*\Passes{:User} *)    
+       schema:name "Alice" .  
+
+:bob   a :User ;              #%*\Passes{:User} *) 
+       foaf:name   "Robert" . 
+
+:carol a :User ;              #%*\Fails{:User} *) 
+       foaf:name   "Carol";   
+       schema:name "Carol" .
+
+:dave  a :User ;              #%*\Fails{:User} *) 
+       rdfs:label  "Dave" .   
+  

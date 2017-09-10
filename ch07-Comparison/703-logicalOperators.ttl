@@ -1,0 +1,17 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix : <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:p45 a :Product ;             # %*\Passes{:Product} *)
+     schema:productID "P45" .
+
+:x23 a :Product ;             # %*\Passes{:Product} *)
+     schema:productID "X23" .
+
+:p23 a :Product ;             # %*\Fails{:Product} *)
+     schema:productID "P23" .
+
+:xx  a :Product ;             # %*\Fails{:Product} *)
+     schema:productID "xx" .

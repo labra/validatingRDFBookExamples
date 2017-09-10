@@ -1,0 +1,67 @@
+Input file: 503-firstExample_notValid.ttl
+@base          <http://example.org/random> .
+@prefix schema: <http://schema.org/> .
+@prefix :      <http://example.org/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+
+[ a            sh:ValidationReport ;
+  sh:conforms  false ;
+  sh:result    [ a                             sh:ValidationResult ;
+                 sh:focusNode                  :frank ;
+                 sh:resultMessage              "Less than 1 values" ;
+                 sh:resultPath                 schema:name ;
+                 sh:resultSeverity             sh:Violation ;
+                 sh:sourceConstraintComponent  sh:MinCountConstraintComponent ;
+                 sh:sourceShape                _:b0
+               ] ;
+  sh:result    [ a                             sh:ValidationResult ;
+                 sh:focusNode                  :emily ;
+                 sh:resultMessage              "More than 1 values" ;
+                 sh:resultPath                 schema:name ;
+                 sh:resultSeverity             sh:Violation ;
+                 sh:sourceConstraintComponent  sh:MaxCountConstraintComponent ;
+                 sh:sourceShape                _:b0
+               ] ;
+  sh:result    [ a                             sh:ValidationResult ;
+                 sh:focusNode                  :dave ;
+                 sh:resultMessage              "Value has none of the shapes from the 'or' list" ;
+                 sh:resultPath                 schema:gender ;
+                 sh:resultSeverity             sh:Violation ;
+                 sh:sourceConstraintComponent  sh:OrConstraintComponent ;
+                 sh:sourceShape                []  ;
+                 sh:value                      :Unknown
+               ] ;
+  sh:result    [ a                             sh:ValidationResult ;
+                 sh:focusNode                  :dave ;
+                 sh:resultMessage              "Value does not have datatype xsd:date" ;
+                 sh:resultPath                 schema:birthDate ;
+                 sh:resultSeverity             sh:Violation ;
+                 sh:sourceConstraintComponent  sh:DatatypeConstraintComponent ;
+                 sh:sourceShape                []  ;
+                 sh:value                      1980
+               ] ;
+  sh:result    [ a                             sh:ValidationResult ;
+                 sh:focusNode                  _:b1 ;
+                 sh:resultMessage              "Value does not have node kind sh:IRI" ;
+                 sh:resultPath                 schema:knows ;
+                 sh:resultSeverity             sh:Violation ;
+                 sh:sourceConstraintComponent  sh:NodeKindConstraintComponent ;
+                 sh:sourceShape                _:b2 ;
+                 sh:value                      _:b1
+               ] ;
+  sh:result    [ a                             sh:ValidationResult ;
+                 sh:focusNode                  :dave ;
+                 sh:resultMessage              "Value does not have class :User" ;
+                 sh:resultPath                 schema:knows ;
+                 sh:resultSeverity             sh:Violation ;
+                 sh:sourceConstraintComponent  sh:ClassConstraintComponent ;
+                 sh:sourceShape                _:b2 ;
+                 sh:value                      :grace
+               ]
+] .
+

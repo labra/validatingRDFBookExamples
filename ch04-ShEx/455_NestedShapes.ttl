@@ -4,10 +4,10 @@ prefix schema: <http://schema.org/>
 prefix foaf: <http://xmlns.com/foaf/0.1/>
 
 :alice schema:name "Alice" ;         #%*\Passes{:User} *)
-    schema:worksFor :OurCompany .
+       schema:worksFor :OurCompany .
 
-:bob schema:name "Robert" ;          #%*\Passes{:User} *)
-     schema:worksFor [ a :Company] .
+:bob   schema:name "Robert" ;        #%*\Passes{:User} *)
+       schema:worksFor [ a :Company] .
 
 :carol schema:name "Carol" ;         #%*\Fails{:User} *)
        schema:worksFor [ 

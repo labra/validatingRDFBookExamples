@@ -1,0 +1,51 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <http://www.example.org/> .
+
+:ProductShape a sh:NodeShape;
+ sh:targetClass :Product ;
+ sh:property [ 
+	 sh:path     rdfs:label ; 
+	 sh:or ( 
+	  [sh:datatype xsd:string] 
+	  [sh:datatype rdf:langString] 
+     );
+     sh:minCount 1; 
+	 sh:maxCount 1
+  ]; 
+ sh:property [ 
+	 sh:path     schema:releaseDate ; 
+	 sh:or ( 
+	  [sh:datatype xsd:date] 
+	  [sh:datatype xsd:gYear] 
+	  [sh:in ("unknown-past" "unknown-future")]
+     );
+     sh:minCount 1; 
+	 sh:maxCount 1
+  ]; 
+.
+
+:p1 a :Product ;                           #%*\Passes{:Product} *)
+    rdfs:label "Laptop";
+    schema:releaseDate "1990"^^xsd:gYear .
+
+:p2 a :Product ;                           #%*\Passes{:Product} *)
+    rdfs:label "Car"@en ;
+    schema:releaseDate "unknown-future" .
+
+:p3 a :Product ;                           #%*\Fails{:Product} *)
+    rdfs:label :House ;
+    schema:releaseDate "2020"^^xsd:integer .
+	
+:p4 a :Product ;
+    rdfs:label "One", "Two";
+    schema:releaseDate 1980	.	
+
+:p5 a :Product ;
+    rdfs:label 23;
+    schema:releaseDate "unknown" .	

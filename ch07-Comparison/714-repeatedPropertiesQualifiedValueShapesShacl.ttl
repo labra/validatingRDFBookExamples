@@ -1,0 +1,47 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+:PersonShape a sh:NodeShape;
+  sh:targetClass :Person ;
+  sh:property [
+   sh:path                schema:parent ; 
+   sh:qualifiedValueShape [
+      sh:path     :isMale ;
+      sh:hasValue true
+     ] ;
+   sh:qualifiedMinCount   1 ;
+   sh:qualifiedMaxCount   1 ;
+  ];
+  sh:property [
+   sh:path                schema:parent ; 
+   sh:qualifiedValueShape [
+      sh:path     :isFemale ;
+      sh:hasValue true 
+     ] ;
+   sh:qualifiedMinCount   1 ;
+   sh:qualifiedMaxCount   1 ;
+  ] ;
+ sh:property [ sh:path schema:parent;
+  sh:minCount 2; 
+  sh:maxCount 2
+ ]
+.
+
+:alice   a :Person; 
+         schema:parent :bob ;    #%* \Passes{:Person in ShEx} *)
+         schema:parent :carol .  #%* \Fails{:Person in SHACL} *)
+
+:bob     :isMale   true .
+:carol   :isFemale true .
+
+:dave    a :Person ;
+         schema:parent :x .      #%* \Fails{:Person in ShEx} *)
+                                 #%* \Passes{:Person in SHACL} *)
+
+:x       :isMale   true ;
+         :isFemale true .

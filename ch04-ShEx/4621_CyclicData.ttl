@@ -6,14 +6,14 @@ prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 prefix org:    <http://www.w3.org/ns/org#>
 
 
-:alice schema:worksFor :OurCompany .
+:alice schema:worksFor :OurCompany .           #%*\Passes{:User} *)
 
-:bob schema:name "Robert";
+:bob schema:name "Robert";                     #%*\Passes{:User} *)
      schema:worksFor :OurCompany .
 
-:carol schema:worksFor :AnotherCompany .
+:carol schema:worksFor :AnotherCompany .       #%*\Passes{:User} *)  
 
-:OurCompany schema:name "OurCompany" ;
+:OurCompany schema:name "OurCompany" ;         #%*\Passes{:Company} *) 
             schema:employee :alice, :bob .
 
-:AnotherCompany schema:name "AnotherCompany" .
+:AnotherCompany schema:name "AnotherCompany" . #%*\Passes{:Company} *) 

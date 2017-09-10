@@ -1,0 +1,37 @@
+@prefix :       <http://example.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema: <http://schema.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+:User a sh:NodeShape ;          #%* \color{red}{Undefined shapes graph} *)
+ sh:property [                  #%* \color{red}{because :User refers to itself} *)
+  sh:path     schema:name ;
+  sh:datatype xsd:string ;
+  sh:minCount 1; 
+  sh:maxCount 1;
+ ]; 
+ sh:property [
+  sh:path     schema:birthDate ;
+  sh:datatype xsd:date ;
+  sh:maxCount 1;
+ ]; 
+ sh:property [ 
+  sh:path    schema:knows ;
+  sh:node    :User ;
+ ].
+
+:User sh:targetNode :alice, :bob, :carol .
+
+:alice schema:name      "Alice" ;       
+       schema:birthDate "1995-06-03"^^xsd:date;
+	   schema:knows     :bob .
+	   
+:bob   schema:name      "Robert" .
+
+:carol schema:name      "Carol" ;
+       schema:knows     :dave .
+	   
+:dave  schema:name      23 .	   

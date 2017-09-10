@@ -1,0 +1,48 @@
+prefix :       <http://example.org/> 
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+prefix schema: <http://schema.org/>
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:User a sh:NodeShape ;
+  sh:property [ 
+   sh:path [ sh:zeroOrMorePath schema:knows ] ;
+   sh:node :UserStructure 
+  ] .
+  
+:UserStructure a sh:NodeShape ; 
+ sh:property [ sh:path schema:name ;
+  sh:datatype xsd:string ;
+  sh:minCount 1; sh:maxCount 1;
+ ]; 
+ sh:property [ sh:path schema:birthDate ;
+  sh:datatype xsd:date ;
+  sh:maxCount 1;
+ ]
+ .
+ 
+:alice schema:name      "Alice" ;           #%*\Passes{:User} *)       
+       schema:birthDate "1995-06-03"^^xsd:date;
+	   schema:knows     :bob .
+	   
+:bob   schema:name      "Robert" .          #%*\Passes{:User} *)
+                     
+
+:carol schema:name      "Carol" ;           #%*\Fails{:User} *)
+       schema:knows     :dave .             #%* :dave fails as :User *)     
+	   
+:dave  schema:name      23 .                #%*\Fails{:User} *)
+       	                                    #%* wrong value of schema:name *) 
+
+:emily schema:name      "Emily" ;           #%*\Fails{:User} *)
+       schema:knows     :frank .            #%* wrong value of schema:knows*) 
+
+:User sh:targetNode :alice .	   
+:User sh:targetNode :bob .	   
+:User sh:targetNode :carol .	   
+:User sh:targetNode :dave .
+:User sh:targetNode :emily .
+
+ 
+ 

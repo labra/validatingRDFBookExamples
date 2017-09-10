@@ -1,0 +1,31 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+
+:UserShape a sh:NodeShape ;              
+ sh:targetClass :User ;
+ sh:and ( 
+  [ sh:path schema:name;          
+    sh:datatype xsd:string ;
+    sh:minCount 1 
+  ]                                
+  [ sh:path schema:affiliation;   
+    sh:minCount 1 
+  ]                                
+ )
+.
+
+:alice a :User ;                  #%*\Passes{:User} *) 
+ schema:name "Alice" ;
+ schema:affiliation :OurCompany .
+ 
+:bob a :User ;                    #%*\Fails{:User} *) 
+ schema:affiliation :OurCompany . 
+ 
+:carol a :User ;                  #%*\Fails{:User} *) 
+ schema:name 23 . 

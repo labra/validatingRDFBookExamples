@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element name="course" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <zeroOrMore>
+    <element name="student">
+      <element name="name">
+        <data type="string"/>
+      </element>
+      <element name="gender">
+        <choice>
+          <value>Male</value>
+          <value>Female</value>
+        </choice>
+      </element>
+      <optional>
+        <element name="birthDate">
+          <data type="date"/>
+        </element>
+      </optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </element>
+  </zeroOrMore>
+  <attribute name="name">
+    <data type="string"/>
+  </attribute>
+</element>

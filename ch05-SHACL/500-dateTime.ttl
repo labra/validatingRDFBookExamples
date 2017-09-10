@@ -1,0 +1,29 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+        
+:Event a sh:NodeShape;
+   sh:targetClass :Event ;
+   sh:property [                  
+    sh:path     schema:name ; 
+    sh:minCount 1; 
+    sh:maxCount 1;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [                   
+   sh:path     schema:startDate ; 
+   sh:maxCount 1; 
+   sh:datatype xsd:dateTime ;
+  ] ;
+ .
+
+:event1 a :Event ;
+  schema:name "Event1" ;
+  schema:startDate "2017-05-15T16:27:01-00:00"^^xsd:dateTime .
+  
+:event2 a :Event ;
+  schema:name "Event2" ;
+  schema:startDate "2017-05-15T16:27:01-00:00" .  

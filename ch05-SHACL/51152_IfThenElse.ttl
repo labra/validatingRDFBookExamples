@@ -1,0 +1,66 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+
+#:Product ( 
+#  NOT  { a [ schema:Vehicle ] } OR 
+#       { schema:vehicleEngine . ;
+#        schema:fuelType .
+#       }
+# ) AND ({ a [schema:Vehicle] } OR 
+#        { schema:category xsd:string } )
+
+:Product a sh:NodeShape ;
+ sh:or (
+  [ sh:not 
+     [ sh:path     rdf:type ;
+       sh:hasValue schema:Vehicle
+     ]
+  ]            
+  [ sh:and (
+     [ sh:path     schema:vehicleEngine ;
+       sh:minCount 1; 
+       sh:maxCount 1
+     ]
+     [ sh:path     schema:fuelType ;
+       sh:minCount 1; 
+       sh:maxCount 1
+     ] 
+   )
+  ]
+ );
+ sh:or ( 
+   [ sh:path     rdf:type ;
+     sh:hasValue schema:Vehicle
+   ]
+   [ sh:path     schema:category ;
+     sh:datatype xsd:string;
+     sh:minCount 1; 
+     sh:maxCount 1
+   ]
+ ) 
+.
+ 
+ 
+:kitt a schema:Vehicle;                #%*\Passes{:Product} *)
+      schema:vehicleEngine :x42 ;
+      schema:fuelType      :electric .
+
+:c23  a schema:Computer ;              #%*\Passes{:Product} *)
+      schema:category      "Laptop" . 
+
+:bad1 a schema:Vehicle;                #%*\Fails{:Product} *)
+      schema:fuelType      :electric . # Missing schema:vehicleEngine
+
+:bad2 a schema:Computer .              #%*\Fails{:Product} *)
+                                       # Missing schema:category
+
+:Product sh:targetNode :kitt .
+:Product sh:targetNode :c23 .  
+:Product sh:targetNode :bad1 .
+:Product sh:targetNode :bad2 .

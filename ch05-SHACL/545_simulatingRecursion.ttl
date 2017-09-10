@@ -1,0 +1,44 @@
+@prefix :       <http://example.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema: <http://schema.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+:User a sh:NodeShape ; 
+ sh:targetClass :User ;
+ sh:property [
+  sh:path     schema:name ;
+  sh:datatype xsd:string ;
+  sh:minCount 1; 
+  sh:maxCount 1;
+ ]; 
+ sh:property [
+  sh:path     schema:birthDate ;
+  sh:datatype xsd:date ;
+  sh:maxCount 1;
+ ]; 
+ sh:property [ 
+  sh:path  schema:knows ;
+  sh:class :User ;
+ ].
+
+:alice a                :User ;             #%*\Passes{:User} *)
+       schema:name      "Alice" ;                  
+       schema:birthDate "1995-06-03"^^xsd:date;
+	   schema:knows     :bob .
+	   
+:bob   a                :User ;             #%*\Passes{:User} *)
+       schema:name      "Robert" .              
+
+:carol a                :User ;             #%*\Passes{:User} *)
+       schema:name      "Carol" ;           #%* Is it ok to pass? *) 
+       schema:knows     :dave .                 
+	   
+:dave  a                :User ;             #%*\Fails{:User} *)
+       schema:name      23 .	            #%* wrong value of schema:name *) 
+
+:emily a                :User ;             #%*\Fails{:User} *)
+       schema:name      "Emily" ;           #%* wrong value of schema:knows*) 
+       schema:knows     :frank .

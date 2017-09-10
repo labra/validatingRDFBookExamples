@@ -1,0 +1,58 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+
+:FixedListConstraintComponent 
+ a sh:ConstraintComponent ;
+ rdfs:label "Fixed list constraint component" ;
+ sh:parameter [
+  sh:path :size ;
+  sh:name "Size of list" ;
+  sh:description "The size of the list" ;
+ ] ;
+ sh:labelTemplate "Size of values: \"{$size}\"" ;
+ sh:propertyValidator [
+  a sh:SPARQLSelectValidator ;
+  sh:message "{$PATH} must have length {?size}, not {?count}" ;
+  sh:prefixes [ sh:declare [
+    sh:prefix "rdf" ;
+    sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   ] 
+  ] ;
+  sh:select """
+   SELECT $this ?value $count WHERE {
+     $this $PATH ?value .
+     { { SELECT $this ?value (COUNT(?member) AS ?count) $size WHERE {
+          ?value rdf:rest*/rdf:first ?member
+       } GROUP BY $this ?value $size
+      }
+     FILTER (!isBlank(?value) || ?count != $size)
+    }
+  }"""
+ ] .
+    
+:ProductShape a sh:NodeShape ;
+ sh:targetClass :Product ;
+ sh:property [ 
+  sh:path :color ;
+  :size 3 ;
+  sh:minCount 1
+ ] .
+
+:p1 a :Product ;       #%*\Passes{:Product} *) 
+  :color (255 0 255) .
+
+:p2 a :Product ;        #%*\Fails{:Product} *) 
+ :knows ( :x :y ) ;
+ :color (255 0 210 345) .
+
+:p3 a :Product ;        #%*\Fails{:Product} *)  
+  :color 3 .
+
+:p4 a :Product .        #%*\Fails{:Product} *)  
+  

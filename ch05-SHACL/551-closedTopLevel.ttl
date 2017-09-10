@@ -1,0 +1,38 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+:UserShape a sh:NodeShape ;
+  sh:targetClass       :User ;
+  sh:closed            true ;
+  sh:ignoredProperties ( rdf:type );
+  sh:property [
+    sh:path     schema:name ;
+    sh:datatype xsd:string;
+   ] ;
+  sh:property [
+    sh:path     [sh:zeroOrOnePath schema:knows] ;
+    sh:nodeKind sh:IRI;
+   ] ;
+  sh:node [
+    sh:property [
+     sh:path     schema:worksFor ;
+     sh:nodeKind sh:IRI;
+    ] 
+  ]
+.
+
+:alice a :User ;                  #%*\Passes{:User} *) 
+       schema:name     "Alice" . 
+
+:bob   a :User ;                  #%*\Fails{:User} *) 
+       schema:name     "Robert" ;   
+       schema:knows   :carol .  
+
+:carol a :User ;                  #%*\Fails{:User} *) 
+       schema:name     "Carol" ;
+       schema:worksFor :myCompany. 	   

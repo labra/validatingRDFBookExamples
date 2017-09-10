@@ -1,0 +1,15 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:BlackWins { 
+ :wins [ :Black ]
+} AND NOT {
+ :nextMove @:WhiteWins 
+}
+
+:WhiteWins { 
+ :wins [ :White ]
+} AND NOT {
+ :nextMove @:BlackWins 
+}

@@ -1,0 +1,30 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+
+:CountryShape a sh:NodeShape ;
+  sh:targetClass :Country ;
+  sh:property [
+    sh:path       skos:prefLabel ;
+    sh:uniqueLang true 
+] . 
+
+:spain  a :Country;                #%*\Passes{:CountryShape} *) 
+        skos:prefLabel "Spain"@en,    
+                       "España"@es .
+
+:france a :Country;                #%*\Passes{:CountryShape} *) 
+        skos:prefLabel "France",
+                       "France"@en,        
+                       "Francia"@es . 
+
+:italy  a :Country .               #%*\Passes{:CountryShape} *)     
+
+:usa    a :Country;                #%*\Fails{:CountryShape} *) 
+        skos:prefLabel "USA"@en,      
+                       "United States"@en.

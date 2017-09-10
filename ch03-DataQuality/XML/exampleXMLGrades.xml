@@ -1,0 +1,11 @@
+<course name="Algebra">
+ <student id="S234">
+  <name>Alice</name>
+  <grade>8</grade>
+ </student>
+ <student id="S476">
+  <name>Robert</name>
+  <grade>5</grade>
+ </student>
+ <totalStudents>2</totalStudents>
+</course>

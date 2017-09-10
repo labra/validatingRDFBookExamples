@@ -1,0 +1,24 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+:alice a        :Teacher,  #%*\Passes{:Teacher with RDFS entailment} *) 
+                :Person ;  #%*\Passes{:Teacher without RDFS entailment}*) 
+       :teaches :algebra .
+
+:bob   a        :Teacher ; #%*\Passes{:Teacher with RDFS entailment} *)  
+       :teaches :logic   . #%*\Fails{:Teacher without RDFS entailment}*)
+
+:carol a        :Teacher ; #%*\Passes{:Teacher with RDFS entailment} *)  
+       :teaches :algebra . #%*\Passes{:Teacher without RDFS entailment}*)
+                           #%* It uses SHACL instances *)
+
+:algebra a      :Course .
+
+:teaches rdfs:range  :Course .
+:teaches rdfs:domain :Teacher .
+:Teacher rdfs:subClassOf :Person .

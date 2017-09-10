@@ -1,0 +1,29 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:ProductShape a sh:NodeShape;
+  sh:targetClass :Product ;
+  sh:property [
+    sh:path       rdfs:label ;
+    sh:languageIn ("es" "en" "fr")
+] . 
+
+:p234 a :Product ;              #%*\Passes{:ProductShape} *) 
+      rdfs:label "jamón"@es,      
+                 "ham"@en .
+
+:p235 a :Product ;              #%*\Passes{:ProductShape} *)  
+      rdfs:label "milk"@en .      
+
+:p236 a :Product ;              #%*\Fails{:ProductShape} *)
+      rdfs:label "Käse"@de .       
+
+:p237 a :Product ;              #%*\Fails{:ProductShape} *) 
+      rdfs:label "patatas"@es ,   
+                 "kartofeln"@de .  
+ 

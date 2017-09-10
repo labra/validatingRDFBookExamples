@@ -1,0 +1,59 @@
+@prefix :       <http://example.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema: <http://schema.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+:UserShape a sh:NodeShape;
+  sh:targetClass :User ;
+  sh:property [
+   sh:path                         schema:parent ; 
+   sh:qualifiedValueShape          [
+      sh:path     :isMale ;
+      sh:hasValue true
+    ] ;
+   sh:qualifiedMinCount            1 ;
+   sh:qualifiedMaxCount            1 ;
+   sh:qualifiedValueShapesDisjoint true 
+  ];
+  sh:property [
+   sh:path                         schema:parent ; 
+   sh:qualifiedValueShape          [
+      sh:path     :isFemale ;
+      sh:hasValue true 
+     ] ;
+   sh:qualifiedMinCount            1 ;
+   sh:qualifiedMaxCount            1 ;
+   sh:qualifiedValueShapesDisjoint true 
+  ].
+  
+:alice a             :User;              #%*\Passes{:UserShape} *)   
+       schema:parent :bob, :carol .
+
+:bob   a             :User ;             #%*\Passes{:UserShape} *)   
+       :isMale       true ;
+       schema:parent [ :isMale true ] ;
+       schema:parent [ :isFemale true ] .
+
+:carol :isFemale     true .
+ 
+:dave a             :User ;              #%*\Fails{:UserShape} *)
+      schema:parent :emily, :frank .     #%* :emily does not have :isMale true *)
+
+:emily a            :User .              #%*\Fails{:UserShape} *)
+
+:frank :isFemale    true .  
+
+:gordon a             :User ;            #%*\Passes{:UserShape} *)
+        schema:parent [ :isMale true] ;
+        schema:parent [ :isFemale true] ;
+        schema:parent :heidi .
+
+:oscar a             :User ;           #%*\Passes{:UserShape} *)
+       schema:parent :x .
+
+:x :isMale   true; 
+   :isFemale true .
+        

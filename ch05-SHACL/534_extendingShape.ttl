@@ -1,0 +1,59 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+
+:Person a sh:NodeShape, rdfs:Class ;
+  sh:property [
+   sh:path     schema:name ;
+   sh:datatype xsd:string ;
+   sh:minCount 1 ;
+   sh:maxCount 1 
+  ] .
+
+:User a sh:NodeShape, rdfs:Class ;
+  sh:and (
+   :Person
+   [ sh:path      schema:name ;
+     sh:maxLength 5
+   ] 
+   [ sh:path      schema:email ;
+     sh:nodeKind  sh:IRI ;
+     sh:minCount  1 ;
+     sh:maxCount  1
+   ]
+  ) . 
+
+:Student a sh:NodeShape, rdfs:Class ;
+  sh:and (
+   :User
+   [ sh:path      :course ;
+     sh:nodeKind  sh:IRI ;
+     sh:minCount  1;
+   ]
+  ) . 
+
+:alice a            :Person ; #%* \Passes{:Person} *)
+       schema:name  "Alice" .                
+
+:bob a              :User ;   #%* \Fails{:User} *)   
+     schema:name    "Robert Smith";  #%* long name *)
+     schema:email   <bob@example.org> .  
+
+:carol a   :Person, :User;    #%* \Passes{:Person and :User} *)
+       schema:name  "Carol" ;            
+       schema:email <carol@example.org> .
+
+:dave  a            :Student; #%* \Passes{:Person,:User and Student} *)
+       schema:name  "Dave" ;
+       schema:email <carol@example.org>;
+       :course      :algebra .
+  
+:bad1  a            :Student; #%* \Fails{:Student} *)
+       schema:name  "Carol" ;
+       schema:email <carol@example.org>;
+       :course      "Logic" .

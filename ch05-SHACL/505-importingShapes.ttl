@@ -1,0 +1,35 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+        
+# TODO: owl:imports is ignored by command line tool        
+<> owl:imports <http://example.org/UserShapes> .
+               # <./505_UserShapes.ttl>
+
+:TeacherShape a sh:NodeShape;
+   sh:targetClass :Teacher ;
+   sh:node :UserShape ;
+   sh:property [     
+    sh:path :teaches ; 
+    sh:minCount 1; 
+    sh:datatype xsd:string;
+  ] .
+
+:alice a :Teacher;                         #%*\Passes{:TeacherShape} *)     
+       schema:name           "Alice" ;            
+       schema:gender         schema:Female ;
+       schema:knows          :bob ;
+       :teaches              "Algebra" .
+
+:bob   a :User ;                            #%*\Passes{:UserShape} *)     
+       schema:gender         schema:Male ;        
+       schema:name           "Robert" .
+
+:carol a :Teacher ;
+       schema:gender 23 ;
+       :teaches "Logic" .
+       

@@ -1,0 +1,12 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix : <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+:Product { 
+ rdfs:label         xsd:string OR rdf:langString;
+ schema:releaseDate xsd:date OR xsd:gYear OR 
+                    [ "unknown-past" "unknown-future" ]
+}

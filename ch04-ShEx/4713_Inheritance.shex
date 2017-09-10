@@ -1,0 +1,22 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:Person { 
+ a                    [ schema:Person ] ; 
+ schema:name          xsd:string  ;
+}
+
+:User @:Person AND {
+ schema:name          MaxLength 20 ;
+ schema:email         IRI
+}
+
+:Student @:User AND {
+ :course              IRI ;
+}
+
+# Bad shape...impossible to satisfy
+:Teacher @:User AND {  
+ schema:email . {0,0}
+}

@@ -1,9 +1,0 @@
-element course {
-  element student {
-    (element name { xsd:string } ),
-    (element gender { "Female" | "Male" }),
-    (element birthDate { xsd:date }) ? ,
-	(attribute id { xsd:ID })
-  }* ,
-  (attribute name { xsd:string } )
-}

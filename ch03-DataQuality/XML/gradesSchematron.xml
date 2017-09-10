@@ -1,0 +1,16 @@
+<sch:schema 
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+ <sch:pattern name="Check Ids">
+  <sch:rule context="student">
+   <sch:assert test="starts-with(@id,'S')"
+   >IDs must start by S</sch:assert>
+  </sch:rule>
+ </sch:pattern>
+ <sch:pattern name="Check totalStudents">
+  <sch:rule context="totalStudents">
+    <sch:assert 
+      test="count(//student) = .">Value of <sch:name/> wrong 
+     </sch:assert>
+   </sch:rule>
+ </sch:pattern>
+</sch:schema>

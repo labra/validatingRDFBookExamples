@@ -13,12 +13,13 @@
     sh:maxCount 1;
     sh:datatype xsd:string ;
   ] ;
-  sh:property [ sh:path schema:gender ;
+  sh:property [                   # Blank node 2
+   sh:path schema:gender ;
    sh:minCount 1;
    sh:maxCount 1;
    sh:or (
+    [ sh:in (schema:Male schema:Female) ]
     [ sh:datatype xsd:string]
-	[ sh:in (schema:Male schema:Female) ]
    )
   ] ;
   sh:property [                   # Blank node 3  
@@ -46,31 +47,3 @@
        schema:name           "Carol" ;            
        schema:gender         schema:Female ;  
        foaf:name             "Carol" .
-	   
-:xyy  a :User;                             #%*\Passes{:UserShape} *)     
-       schema:name           "XYY" ;            
-       schema:gender         "XYY" .
-  
-:dave  a :User ;                        #%*\Fails{:UserShape} *)     
-       schema:name       "Dave";             
-       schema:gender     :Unknown ;
-       schema:birthDate  1980 ;
-       schema:knows      :grace .
-
-:emily a :User ;                        #%*\Fails{:UserShape} *)          
-       schema:name       "Emily", "Emilee";
-       schema:gender     schema:Female .
-
-:frank a :User ;                        #%*\Fails{:UserShape} *)     
-       foaf:name         "Frank" ;           
-       schema:gender     schema:Male .
-
-_:x    a :User;                         #%*\Fails{:UserShape} *)          
-       schema:name       "Unknown" ;         
-       schema:gender     schema:Male .
-  
-:badDate   a :User;                             #%*\Passes{:UserShape} *)     
-       schema:gender         schema:Male ;        
-       schema:name           "Robert";
-       schema:birthDate      "1980-03-10" .
-  
