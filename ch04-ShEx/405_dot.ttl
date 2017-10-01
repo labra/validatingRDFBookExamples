@@ -1,0 +1,13 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+:alice schema:name        23 .         #%* \Passes{:User} *)
+
+:bob schema:name          "Robert" ;   #%* \Passes{:User} *)
+     schema:alternateName "Bob", 
+                          "Bobby", 
+                          <Bob> ;  
+     schema:birthDate     "Unknown" .

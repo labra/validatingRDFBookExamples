@@ -1,0 +1,9 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:Product {
+ schema:name       xsd:string  MaxLength 10 ;
+ schema:weight     xsd:decimal MinInclusive 1 MaxInclusive 200 ;
+ schema:sku        /^[A-Z0-9]{10,20}$/ ;
+}

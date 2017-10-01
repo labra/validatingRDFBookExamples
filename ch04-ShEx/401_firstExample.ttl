@@ -1,0 +1,34 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name           "Alice" ;            # %* \Passes{:User} *)
+       schema:gender         schema:Female ;
+       schema:knows          :bob .
+
+:bob   schema:gender         schema:Male ;        # %* \Passes{:User} *)
+       schema:name           "Robert";            
+       schema:birthDate      "1980-03-10"^^xsd:date .
+
+:carol schema:name           "Carol" ;            # %* \Passes{:User} *)
+       schema:gender         "unspecified" ;  
+       foaf:name             "Carol" .
+
+:dave  schema:name           "Dave";         # %* \Fails{:User} *)
+       schema:gender         "XYY";          #
+       schema:birthDate      1980 .          # %* 1980 is not an xsd:date *)
+
+:emily schema:name "Emily", "Emilee" ;       # %* \Fails{:User} *)
+       schema:gender         schema:Female . # %* too many schema:names *)
+
+:frank foaf:name             "Frank" ;       # %* \Fails{:User} *)
+       schema:gender:        schema:Male .   # %* missing schema:name *)
+
+:grace schema:name           "Grace" ;       # %* \Fails{:User} *)
+       schema:gender         schema:Male ;   # 
+       schema:knows          _:x .           # %* \_:x is not an IRI *)
+
+:harold schema:name         "Harold" ;    # %* \Fails{:User} *)
+        schema:gender       schema:Male ; 
+        schema:knows        :grace .      # %* :grace does not conform to :User *)

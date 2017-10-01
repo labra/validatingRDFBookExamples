@@ -1,0 +1,12 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+prefix codes: <http://example.codes/>
+prefix other: <http://other.codes/>
+
+:x1 :status codes:good.Shipped .              #%* \Passes{:Product} *)
+
+:x2 :status other:done .                      #%* \Fails{:Product} *)
+
+:x3 :status <http://example.codes/bad.Lost> . #%* \Passes{:Product} *)

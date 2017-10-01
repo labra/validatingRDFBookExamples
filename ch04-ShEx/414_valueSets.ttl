@@ -1,0 +1,12 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:x1 schema:color        "Red";         # %* \Passes{:Product} *)
+    schema:manufacturer :OurCompany .
+	   
+:x2 schema:color        "Cyan" ;       # %* \Fails{:Product} *)
+    schema:manufacturer :OurCompany .
+	   
+:x3 schema:color        "Green" ;      # %* \Fails{:Product} *)
+    schema:manufacturer :Unknown .

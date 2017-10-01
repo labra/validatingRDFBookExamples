@@ -1,0 +1,9 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+prefix codes: <http://example.codes/>
+
+:Product {
+  :status [ . - codes:bad ]
+}

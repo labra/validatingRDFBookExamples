@@ -1,0 +1,13 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX cdt:    <http://custom.data.type/>
+
+:gioconda schema:name "Mona Lisa";                 # %* \Passes{:Picture} *)  
+          schema:width  "21 in"^^cdt:distance ;
+          schema:height "30 in"^^cdt:distance .
+
+:other schema:name   "Other picture" ;             # %* \Fails{:Picture} *)  
+       schema:width  "21 in"^^xsd:string ;         # %* expected cdt:distance *)
+       schema:height 30 .  

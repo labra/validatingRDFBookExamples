@@ -1,0 +1,10 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name    "Alice";  # %* \Passes{:User} *) 
+       schema:follows :bob .
+
+:bob schema:name    :Bob ;     # %* \Fails{:User} *)
+     schema:follows _:x .      # %* :Bob is not a literal and \_:x is not an IRI *)

@@ -1,0 +1,3 @@
+{FOCUS schema:name _}@:User,
+{_ schema:knows FOCUS}@:User,
+{FOCUS rdf:type schema:Person}@:User

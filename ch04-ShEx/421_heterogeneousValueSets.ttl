@@ -1,0 +1,15 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:p1 schema:status :Accepted . #%* \Passes{:Product} *)
+
+:p2 schema:status :Rejected . #%* \Passes{:Product} *)
+
+:p3 schema:status "unknown" . #%* \Passes{:Product} *)
+
+:p4 schema:status :Different . #%* \Fails{:Product} *)
+
+:p5 schema:status :unknown . #%* \Fails{:Product} *)
+
+:p6 schema:status 6 . #%* \Fails{:Product} *)

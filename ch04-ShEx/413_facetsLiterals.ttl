@@ -1,0 +1,11 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:product1 schema:name   "Product 1";          #%*\Passes{:Product} *)
+          schema:weight "23.0"^^xsd:decimal;
+          schema:sku    "A23456B234CBDF" .
+ 
+:product2 schema:name   "Product 2" ;         #%*\Fails{:Product} *)    
+          schema:weight "245.5"^^xsd:decimal ;#%* schema:weight > 200 *)
+          schema:sku    "ABC" .               #%* schema:sku fails regex *)

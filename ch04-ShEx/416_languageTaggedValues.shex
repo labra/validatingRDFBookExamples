@@ -1,0 +1,12 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:car1 schema:label "voiture"@fr .    #%* \Passes{:FrenchProduct} *)
+	   
+:car2 schema:label "Automóvil"@es .    #%* \Passes{:SpanishProduct} *)
+
+:car3 schema:label "Carro"@es-AR . #%* \Passes{:SpanishProduct} *)
+
+:car4 schema:label "Coche"@es-ES . #%* \Passes{:SpanishProduct} *)
+

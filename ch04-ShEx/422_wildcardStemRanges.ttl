@@ -1,0 +1,15 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+prefix codes: <http://example.codes/>
+prefix other: <http://other.codes/>
+
+:p1 :status codes:good . #%* \Passes{:Product} *)
+
+:p2 :status other:bad .  #%* \Passes{:Product} *)
+
+:p3 :status codes:bad .  #%* \Fails{:Product} *)
+
+:p4 :status "good" .     #%* \Fails{:Product} *)
+                         #%* "good" must be a IRI *)
