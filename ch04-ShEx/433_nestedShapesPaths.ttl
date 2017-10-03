@@ -1,0 +1,13 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:alice :parent :bob, :carol .  #%*\Passes{:Grandson} *)
+       
+:bob   :parent :dave.          #%*\Passes{:Grandson} *)
+       
+:carol :parent :emily .        #%*\Fails{:Grandson} *)
+      
+:dave  :parent :grace .        #%*\Fails{:Grandson} *)
+
+:emily schema:name "Emily" .   #%*\Fails{:Grandson} *)

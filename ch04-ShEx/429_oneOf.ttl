@@ -1,0 +1,15 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name       "Alice" .  #%*\Passes{:User} *)
+ 
+:bob   foaf:name         "Bob" ;    #%*\Passes{:User} *)
+       schema:identifier "P234" .
+
+:carol schema:name       "Carol" ;  #%*\Fails{:User} *)
+       foaf:name         "Carol" .  #%* More than one *)
+
+:dave  schema:identifier "P123" .   #%*\Fails{:User} *)
+                                    #%* None provided *)

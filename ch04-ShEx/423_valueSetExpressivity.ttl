@@ -1,0 +1,12 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:gender schema:Female .
+
+:bob schema:gender schema:Male .
+
+:carol schema:gender schema:Flmlae.
+
+:dave schema:name "Dave" .

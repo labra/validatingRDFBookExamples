@@ -1,0 +1,20 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name "Alice";
+       foaf:age 23;
+       schema:email "alice@example.org" .
+
+:bob   schema:name "Robert";
+       foaf:age 23 .
+
+:carol schema:name "Carole";
+       foaf:age 23 ;
+       schema:email <mailto:carol@example.org> .
+
+:dave  schema:name "Dave";
+       foaf:age 34 ;
+       schema:email "dave@example.org" ;
+       schema:address "Liverpool street" .

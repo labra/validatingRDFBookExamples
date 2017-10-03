@@ -1,0 +1,13 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:User {
+ schema:gender [ schema:Male schema:Female ]
+}
+
+:User2 {
+ schema:gender [ schema:Male ] 
+} OR {
+ schema:gender [ schema:Female ] 
+}

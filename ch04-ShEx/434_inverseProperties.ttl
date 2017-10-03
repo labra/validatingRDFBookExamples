@@ -1,0 +1,21 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:alice schema:name "Alice";        #%*\Passes{:User} *)
+       schema:worksFor :Company1 .
+
+:bob schema:name "Bob" ;           #%*\Passes{:User} *)
+     schema:worksFor :Company1 .
+
+:carol schema:worksFor :Company3 . #%*\Fails{:User} *)
+                                   #%* No schema:name *)
+
+:Company1 a schema:Company .       #%*\Passes{:Company} *)
+
+:Company2 a schema:Company .       #%*\Fails{:Company} *)
+                                   #%* No one works for it *)
+
+:Company3 a schema:Company .       #%*\Fails{:Company} *)
+                                   #%* Carol works for it *)
+                                   #%* but does not conform to User *)

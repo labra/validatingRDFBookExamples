@@ -1,0 +1,15 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:alice schema:name       "Alice" .  #%*\Passes{:User} *)
+ 
+:bob   schema:givenName  "Bob" ;    #%*\Passes{:User} *)
+       schema:givenName  "Bobby";
+       schema:familyName "Smith" .
+
+:carol schema:name       "Carol" ;  #%*\Fails{:User} *)
+       schema:familyName "King" .   #%* Can't have both *)
+
+:dave  schema:name        23 .      #%*\Fails{:User} *)
+                                    #%* schema:name must be xsd:string *)

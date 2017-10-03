@@ -1,0 +1,9 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:Product {
+ schema:productId xsd:string ;
+ ( schema:isRelatedTo @:Product |
+   schema:isSimilarTo @:Product ){0,2}
+}

@@ -1,0 +1,16 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:alice schema:name "Alice" ;           #%*\Passes{:User} *)
+       schema:worksFor :OurCompany .
+
+:bob   schema:name "Robert" ;          #%*\Passes{:User} *)
+       schema:worksFor [ a :Company] .
+
+:carol schema:name "Carol" ;           #%*\Fails{:User} *)
+       schema:worksFor [               #%* The value of schema:worksFor *)
+         schema:name "AnotherCompany"  #%* does not have rdf:type :Company *)
+       ].
+
+:OurCompany a :Company .               #%*\Passes{anonymous shape} *)

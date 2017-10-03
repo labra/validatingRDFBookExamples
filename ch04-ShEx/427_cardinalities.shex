@@ -1,0 +1,15 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:User {
+  schema:name xsd:string ;
+  schema:worksFor IRI ? ;
+  schema:follows  IRI *
+}
+
+:Company {
+  schema:founder  IRI ?;
+  schema:employee IRI {1,100}
+}
