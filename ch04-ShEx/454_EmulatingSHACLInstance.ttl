@@ -1,0 +1,16 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:Teacher   rdfs:subClassOf schema:Person .
+:Assistant rdfs:subClassOf :Teacher .
+
+:alice     a schema:Person .               #%*\Passes{:Person} *)
+
+:bob       a :Teacher .                    #%*\Passes{:Person} *)
+
+:carol     a :Assistant .                  #%*\Passes{:Person} *)
+
+:dave      a schema:Patient .              #%*\Fails{:Person} *)

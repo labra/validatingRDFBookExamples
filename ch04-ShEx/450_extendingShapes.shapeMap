@@ -1,0 +1,3 @@
+:alice@:Person,:bob@:Person,:carol@:Person,:dave@:Person,
+:alice@:User,:bob@:User,:carol@:User,:dave@:User,
+:alice@:Teacher,:bob@:Teacher,:carol@:Teacher,:dave@:Teacher

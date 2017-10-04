@@ -1,0 +1,16 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:CompanyConstraints IRI /^http:\/\/example.org\/id[0-9]+/ @:CompanyShape 
+
+:User {
+ schema:name        xsd:string;
+ schema:worksFor    @:CompanyConstraints;
+ schema:affiliation @:CompanyConstraints
+}
+
+:CompanyShape {                        
+  schema:founder xsd:string;                   
+}

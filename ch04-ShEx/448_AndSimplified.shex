@@ -1,0 +1,9 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:User1 IRI AND { schema:name xsd:string } 
+:User2 IRI { schema:name xsd:string }
+
+:Product1 { schema:productId xsd:string AND MINLENGTH 5 AND MAXLENGTH 10 }
+:Product2 { schema:productId xsd:string MINLENGTH 5 MAXLENGTH 10 }

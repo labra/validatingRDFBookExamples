@@ -1,0 +1,17 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:kitt schema:productID "C21";     #%*\Passes{:Product} *)
+      a schema:Vehicle;
+      schema:vehicleEngine :x42 ;
+      schema:fuelType :electric .
+
+:bad  schema:productID "C22";     #%*\Fails{:Product} *)
+      a schema:Vehicle;
+      schema:fuelType :electric .
+
+:c23  schema:productID "C23" ;    #%*\Passes{:Product} *)
+      a schema:Computer .

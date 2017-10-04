@@ -1,0 +1,19 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name "Alice" ;            #%*\Passes{:User} *)
+       schema:owns :product1 .
+
+:bob schema:name "Robert" ;             #%*\Fails{:User} *)
+     schema:owns :product2, :product3 .
+
+:carol schema:name "Carol" ;            #%*\Fails{:User} *)
+       schema:owns _:x .
+
+:product1 schema:productId "Product1" . #%*\Passes{:Product} *)
+:product2 schema:productId "Product2" . #%*\Passes{:Product} *) 
+:product3 schema:productId "Product3" . #%*\Passes{:Product} *) 
+:product4 schema:productId "P4" .       #%*\Fails{:Product} *) 
+_:x       schema:productId "ProductX" . #%*\Passes{:Product} *) 

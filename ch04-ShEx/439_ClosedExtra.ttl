@@ -1,0 +1,19 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:alice schema:name        "Alice" ;    #%*\Passes{:KnowsW3CPeople} *)
+       schema:affiliation :ACompany ;
+       schema:knows       :bob .
+ 
+:bob   schema:name        "Bob" ;      #%*\Fails{:KnowsW3CPeople} *)
+       schema:affiliation :W3C;          
+       schema:knows       :carol .     #%* :carol's affiliation is not :W3C *)
+
+:carol schema:name        "Carol" ;    #%*\Passes{:KnowsW3CPeople} *)
+       schema:affiliation :ACompany ;
+       schema:knows       :alice, :bob .
+
+:dave  schema:name  "Dave" ;           #%*\Fails{:KnowsW3CPeople} *)
+       schema:knows :alice, :bob ; 
+       schema:age   23 .               #%* schema:age not allowed*)

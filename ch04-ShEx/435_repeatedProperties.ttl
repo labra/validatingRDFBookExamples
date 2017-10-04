@@ -1,0 +1,21 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name   "Alice" ;        #%*\Passes{:User} *)
+       schema:parent :bob, :carol .
+ 
+:bob   schema:gender schema:Male .   
+:carol schema:gender schema:Female . 
+
+:dave  schema:name   "Dave" ;         #%*\Fails{:User} *)
+       schema:parent :carol, :emily . # both parents are Female
+
+:emily schema:gender schema:Female . 
+
+:frank schema:name "Frank";           #%*\Fails{:User} *)
+       schema:parent :x .             # only one parent
+
+:x     schema:gender schema:Female, 
+                     schema:Male .

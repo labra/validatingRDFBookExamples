@@ -1,0 +1,18 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:User {
+ ( schema:name .
+ | schema:givenName . ;
+   schema:familyName .
+ ) ;
+ schema:email IRI
+}
+
+:Employee {
+  ( schema:name .
+  | schema:givenName . ;
+    schema:familyName .) ;
+  :employeeId .
+}

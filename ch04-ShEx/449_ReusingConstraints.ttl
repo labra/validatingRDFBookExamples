@@ -1,0 +1,12 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name        "Alice" ;     #%*\Passes{:User} *)
+       schema:worksFor    :id1 ;
+       schema:affiliation :id2 .
+
+:id1 schema:founder "Robert" .
+          
+:id2 schema:founder "Carol" .

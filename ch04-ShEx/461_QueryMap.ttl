@@ -1,0 +1,14 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+:alice a schema:Person .
+
+:bob schema:worksFor :c1,
+                     :c2 .
+
+:carol a :User ;
+       schema:worksFor :c1 .

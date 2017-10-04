@@ -1,0 +1,16 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name     "Alice" .        #%*\Passes{:User1 and :User2} *)
+
+:bob schema:givenName "Robert";         #%*\Passes{:User1 and :User2} *)
+     schema:familyName "Smith" .            
+
+:carol schema:name      "Carol King" ;  #%*\Passes{:User1} *)
+       schema:givenName "Carol";        #%*\Fails{:User2} *)
+       schema:familyName "King" .  
+
+:dave schema:name       "Dave" ;        #%*\Passes{:User1} *)
+       schema:givenName "Dave" .        #%*\Fails{:User2} *)

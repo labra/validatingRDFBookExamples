@@ -1,0 +1,28 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:uniovi schema:name      "University of Oviedo" ;
+        schema:employee :alice;
+        schema:course   :algebra .
+
+:alice  a               schema:Person;
+        schema:name     "Alice";
+       :teaches        :algebra .
+
+:algebra schema:name "Algebra";
+         :university :uniovi;
+         :hasStudent :bob, :carol .
+
+:bob    a            schema:Person;
+        schema:name  "Robert" ;
+        schema:mbox  <mailto:bob@example.org> ;
+        :hasFriend   :carol ;
+        :isEnroledIn :algebra .
+
+:carol  a            schema:Person;
+        schema:name  "Carol" ;
+        schema:mbox  <mailto:carol@example.org> ;
+        :hasFriend   :bob ;
+        :isEnroledIn :algebra .

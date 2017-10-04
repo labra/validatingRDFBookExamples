@@ -1,0 +1,17 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:p1 a :Product ;                           #%*\Passes{:Product} *)
+    rdfs:label "Laptop";
+    schema:releaseDate "1990"^^xsd:gYear .
+
+:p2 a :Product ;                           #%*\Passes{:Product} *)
+    rdfs:label "Car"@en ;
+    schema:releaseDate "unknown-future" .
+
+:p3 a :Product ;                           #%*\Fails{:Product} *)
+    rdfs:label :House ;
+    schema:releaseDate "2020"^^xsd:integer .

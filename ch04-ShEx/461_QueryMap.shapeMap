@@ -1,0 +1,3 @@
+{ FOCUS schema:worksFor _            }@:User,
+{ FOCUS rdf:type        schema:Person }@:User,
+{ _     schema:worksFor FOCUS        }@:Company

@@ -1,0 +1,9 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+:KnowsW3CPeople CLOSED EXTRA schema:knows {
+ schema:name  xsd:string;
+ schema:affiliation IRI ? ;
+ schema:knows { schema:affiliation [:W3C] }+
+}

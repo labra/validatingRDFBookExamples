@@ -1,0 +1,18 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+prefix js: <http://shex.io/extensions/javascript>
+
+:Event {
+ schema:startDate xsd:dateTime  %js:{ let start = o %} ;
+ schema:endDate   xsd:dateTime  %js:{ let end = o %} ;
+}
+
+:Rectangle {
+ :height xsd:float  %js:{ let height = o %} ;
+ :width  xsd:float  %js:{ let width = o %} ;
+ :area xsd:float    %js:{ o = height * width  %} 
+}

@@ -1,0 +1,21 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+:alice a           :Teacher, :Person; #%*\Passes{:TeacherBefore} *)
+       schema:name "Alice" ;          #%*\Passes{:TeacherAfter} *)
+       :teaches    :algebra .
+
+:bob   schema:name "Robert" ;         #%*\Passes{:TeacherBefore} *)   
+       :teaches    :logic .           #%*\Fails{:TeacherAfter} *)
+
+:carol a           :Teacher ;         #%*\Passes{:TeacherBefore} *)   
+       schema:name "Carol" .          #%*\Fails{:TeacherAfter} *) 
+                     
+:algebra a               :Course .
+:teaches rdfs:domain     :Teacher .
+:teaches rdfs:range      :Course .
+:Teacher rdfs:subClassOf :Person .

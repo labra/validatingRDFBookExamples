@@ -1,0 +1,14 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice a :User;             #%*\Passes{:User} *)
+       schema:worksFor :a .
+	   
+:bob   a :User;             #%*\Fails{:User because :x fails as :Company} *)
+       schema:worksFor :x .
+	   
+:a schema:name "CompanyA" . #%*\Passes{:Company} *)
+    
+:x  schema:name 23 .        #%*\Fails{:Company} *)

@@ -1,0 +1,30 @@
+PREFIX sx: <http://shex.io/ns/shex#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix : <http://example.org/>
+prefix schema: <http://schema.org/>
+
+<> a sx:Schema ;
+   sx:shapes :User .
+
+:User a sx:ShapeAnd ;
+   sx:shapeExprs ( 
+   [ a sx:NodeConstraint ; 
+       sx:nodeKind sx:iri ]
+   [ a sx:Shape; 
+     sx:expression [ 
+      a sx:EachOf ;
+      sx:expressions (
+      [ a            sx:TripleConstraint ;
+        sx:predicate schema:name ;
+        sx:valueExpr [ 
+         a sx:NodeConstraint ; 
+         sx:datatype xsd:string 
+        ]
+      ]
+      [ a            sx:TripleConstraint ;
+        sx:predicate schema:knows ;
+        sx:valueExpr :User;
+        sx:min       0 ;
+        sx:max       -1
+      ] ) 
+ ] ] ).

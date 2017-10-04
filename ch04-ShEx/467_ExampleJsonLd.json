@@ -1,0 +1,32 @@
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "type": "ShapeAnd",
+      "shapeExprs": [
+        { "type": "NodeConstraint",
+          "nodeKind": "iri"
+        },
+        { "type": "Shape",
+          "expression": {
+            "type": "EachOf",
+            "expressions": [
+              { "type":      "TripleConstraint",
+                "predicate": "http://schema.org/name",
+                "valueExpr": { "type": "NodeConstraint",
+                  "datatype": "xsd:string"
+                }
+              },
+              { "type":      "TripleConstraint",
+                "predicate": "http://schema.org/knows",
+                "valueExpr": "http://example.org/User",
+                "min":       0,
+                "max":       -1
+              }
+            ]
+          }
+        }
+      ],
+      "id": "http://example.org/User"
+    }
+  ]
+}

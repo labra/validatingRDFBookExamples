@@ -1,0 +1,14 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+:Person {
+ schema:name      xsd:string 
+  // rdfs:label    "Name" 
+  // rdfs:comment  "Name of person" ;
+
+ schema:birthDate xsd:date 
+   // rdfs:label    "birthDate" 
+   // rdfs:comment  "Birth of date" ;
+}
