@@ -1,0 +1,16 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX sh:     <http://www.w3.org/ns/shacl#> 
+
+:alice schema:knows :bob .
+
+:bob schema:knows :alice .
+
+:carol schema:knows :alice, :carol .
+
+:dave schema:knows [ schema:knows :dave ] .
+
+:emily schema:knows :frank .
+
+:heidi schema:knows 23 .

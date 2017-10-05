@@ -1,0 +1,13 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+
+:Product {
+ schema:productId /^[A-R]/ ;
+ schema:productId /^[M-Z]/ ;
+ schema:brand IRI @:Organization* ; 
+ schema:purchaseDate xsd:date ?
+}
+:Organization {
+ schema:name xsd:string
+}

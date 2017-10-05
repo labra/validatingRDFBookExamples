@@ -1,0 +1,1 @@
+{ FOCUS rdf:type/rdfs:subClassOf* :User }@:UserShape

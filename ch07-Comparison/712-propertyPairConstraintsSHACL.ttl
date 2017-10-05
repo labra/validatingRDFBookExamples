@@ -1,0 +1,44 @@
+prefix :       <http://example.org/> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#> 
+prefix schema: <http://schema.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix foaf:   <http://xmlns.com/foaf/0.1/> 
+
+:UserShape a sh:NodeShape ;
+ sh:property [
+   sh:path     schema:givenName ;
+   sh:datatype xsd:string ;
+   sh:disjoint schema:lastName ;
+   sh:minCount 1; 
+   sh:maxCount 1;
+ ] ;
+ sh:property [
+   sh:path     foaf:firstName ;
+   sh:equals   schema:givenName ;
+   sh:minCount 1; 
+   sh:maxCount 1;
+ ] ;
+ sh:property [
+   sh:path     schema:birthDate ;
+   sh:datatype xsd:date ;
+   sh:lessThan :loginDate ;
+   sh:minCount 1; 
+   sh:maxCount 1;
+ ] .
+ 
+:alice schema:givenName "Alice" ;
+       schema:lastName "Cooper" ;
+       foaf:firstName "Alice" ;
+       schema:birthDate "1980-03-04"^^xsd:date ;
+       :loginDate "2017-02-10"^^xsd:date .
+       
+:UserShape sh:targetNode :alice, :bob .   
+
+:bob   schema:givenName "Robert" ;
+       schema:lastName "Smith" ;
+       foaf:firstName "Bob" ;
+       schema:birthDate "2018-03-04"^^xsd:date ;
+       :loginDate "2017-02-10"^^xsd:date .  
+
+       

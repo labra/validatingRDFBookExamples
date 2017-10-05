@@ -1,0 +1,34 @@
+prefix :       <http://example.org/> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#> 
+prefix schema: <http://schema.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+
+:GrandParent a sh:NodeShape ;
+  sh:property [
+    sh:path [ sh:zeroOrMorePath schema:knows] ;
+    sh:class :Person ;
+  ] ; 
+  sh:property [
+    sh:path (schema:child schema:child ) ;
+	sh:minCount 1 ;
+    sh:class :GrandChild ;
+  ]
+.
+
+:GrandParent sh:targetNode :alice , :emily .
+
+:alice a :Person ;
+       schema:knows :bob ;
+       schema:child :carol .
+
+:bob a :Person .
+
+:carol schema:child :dave .
+
+:dave a :GrandChild .
+
+:emily schema:child :frank ;
+       schema:knows :dave .
+       
+:frank schema:child :grace .       

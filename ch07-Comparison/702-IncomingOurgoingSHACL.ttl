@@ -1,0 +1,37 @@
+prefix :       <http://example.org/> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#> 
+prefix schema: <http://schema.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+
+:User a sh:NodeShape ;
+   sh:property [ 
+    sh:path schema:name ;
+    sh:minCount 1; 
+    sh:maxCount 1;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [ 
+   sh:path [ sh:inversePath schema:member ] ;
+   sh:minCount 1; sh:maxCount 1;
+   sh:node :Organization;
+  ] .
+
+:Organization a sh:NodeShape ;
+   sh:property [ 
+    sh:path rdf:type ;
+    sh:minCount 1; sh:maxCount 1;
+    sh:hasValue :Organization ;
+  ] .
+
+:alice a :User ;                  # %*\Passes{:User} *)
+       schema:name "Alice" .
+
+:bob a :User ;
+       schema:name "Robert" .     # %*\Fails{:User} *)
+
+:myCompany a :Organization ;
+           schema:member :alice . 
+           
+:User sh:targetNode :alice, :bob .
+:Organization sh:targetNode :myCompany .

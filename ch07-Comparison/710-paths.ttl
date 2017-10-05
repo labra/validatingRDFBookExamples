@@ -1,0 +1,20 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+PREFIX sx:     <http://www.w3.org/ns/shex#>
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+
+:alice a :Person ;
+       schema:knows :bob ;
+       schema:child :carol .
+
+:bob a :Person .
+
+:carol schema:child :dave .
+
+:dave a :GrandChild .
+
+:emily schema:child :frank ;
+       schema:knows :dave .
+       
+:frank schema:child :grace .       

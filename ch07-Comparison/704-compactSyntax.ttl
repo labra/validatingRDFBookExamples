@@ -1,0 +1,14 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+
+:p1 a :Product ;                   # %*\Passes{:Product using ShEx} *)
+    schema:productId "AB"  ;       # %*\Fails{:Product using SHACL} *)
+    schema:productId "XY" ;         
+    schema:brand     :myBrand .
+
+:p2 a :Product ;                   # %*\Fails{:Product using ShEx} *)
+    schema:productId "MON" ;       # %*\Passes{:Product using SHACL} *)
+    schema:brand     :myBrand .
+
+:myBrand schema:name "MyBrand" .

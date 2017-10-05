@@ -1,0 +1,19 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+PREFIX sx:     <http://www.w3.org/ns/shex#>
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+
+:p23 schema:productId "23" ;
+     schema:price 45.34 .
+
+:pAB schema:productId "AB" ;
+     schema:purchaseDate "2017-4-5"^^xsd:date ;
+     schema:price 30.50 .
+
+:p45 schema:productId "45" ;
+     schema:purchaseDate "2017-4-5"^^xsd:date ;
+     schema:price 30.50 .
+
+:p50 schema:productId "45" ;
+     schema:purchaseDate "2017-4-5"^^xsd:date .

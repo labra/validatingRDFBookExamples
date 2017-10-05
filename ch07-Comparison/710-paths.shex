@@ -1,0 +1,15 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+
+:GrandParent {
+ schema:knows @:PersonKnown*;
+ schema:child { 
+   schema:child { a [ :GrandChild ] }
+ }
+}
+
+:PersonKnown {
+ a [ :Person ] ;
+ schema:knows @:PersonKnown*
+}

@@ -1,0 +1,30 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+PREFIX sx:     <http://www.w3.org/ns/shex#>
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+
+:Product a sh:NodeShape ;
+ sh:property [ 
+   sh:path     schema:productId ;
+   sh:minCount 1 ; 
+   sh:maxCount 1 ;
+   sh:pattern  "^[A-R]" ;
+ ];
+ sh:property [ 
+   sh:path     schema:productId ;
+   sh:minCount 1 ; 
+   sh:maxCount 1 ;
+   sh:pattern  "^[M-Z]" ;
+ ];
+ sh:property [ 
+   sh:path     schema:brand ;
+   sh:nodeKind sh:IRI ;
+   sh:node     :Organization 
+ ];
+  sh:property [ 
+   sh:path     schema:purchaseDate ;
+   sh:maxCount 1 ;
+   sh:datatype xsd:date 
+ ]
+.

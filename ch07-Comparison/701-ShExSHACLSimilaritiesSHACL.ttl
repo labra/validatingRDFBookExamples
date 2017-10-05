@@ -1,0 +1,41 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+
+:User a sh:NodeShape ;
+   sh:nodeKind sh:IRI ;
+   sh:property [ 
+    sh:path schema:name ; 
+    sh:minCount 1; 
+    sh:maxCount 1;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [ 
+   sh:path schema:gender ; 
+   sh:minCount 1; 
+   sh:maxCount 1; 
+   sh:or (
+    [ sh:in (schema:Male schema:Female) ]
+    [ sh:datatype xsd:string]
+   )
+  ] ;
+  sh:property [ 
+   sh:path schema:birthDate ; 
+   sh:maxCount 1; 
+   sh:datatype xsd:date ;
+  ] .
+  
+:alice schema:name "Alice" ;
+       schema:gender schema:Female ;
+       schema:birthDate "1994-03-04"^^xsd:date .       
+       
+:bob schema:name "Robert" ;
+     schema:gender "Unknown" ;
+     schema:birthDate "2010-03-04"^^xsd:date .              
+     
+:carol schema:name "Carol" ;
+       schema:gender schema:Malle ;
+       schema:birthDate 2010 .                   
+       
+:User sh:targetNode :alice, :bob, :carol .       

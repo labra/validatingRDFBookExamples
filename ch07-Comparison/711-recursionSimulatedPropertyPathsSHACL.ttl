@@ -1,0 +1,39 @@
+prefix :       <http://example.org/> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#> 
+prefix schema: <http://schema.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+
+:UserShape a sh:NodeShape ;
+  sh:property [
+    sh:path [ sh:zeroOrMorePath schema:knows] ;
+    sh:nodeKind sh:IRI ;
+  ] .
+  
+:UserShape sh:targetNode :alice, 
+  :bob, 
+  :carol, 
+  :emily, 
+  :dave, 
+  :heidi .
+
+:alice a :User ;
+       schema:knows :bob .
+
+:bob a :User;
+     schema:knows :alice .
+
+:carol a :User;
+       schema:knows :alice, :carol .
+
+:dave a :User ;
+      schema:knows [ a :User ;
+                     schema:knows :dave ] .
+
+:emily a :User ;
+       schema:knows :frank .
+       
+:frank a :User .           
+
+:heidi a :User ;
+       schema:knows 23 .

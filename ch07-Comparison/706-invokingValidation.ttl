@@ -1,0 +1,17 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+PREFIX sx:     <http://www.w3.org/ns/shex#>
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+
+:alice     schema:name "Alice" .
+
+:bob       a :User ;
+           schema:name "Robert" .
+ 
+:myCompany schema:member :carol .
+
+:carol     schema:name "Carol" .
+
+:dave      schema:familyName "Smith" ;
+           schema:name "Dave Smith" .

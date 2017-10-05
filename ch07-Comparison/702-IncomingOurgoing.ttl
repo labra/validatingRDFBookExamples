@@ -1,0 +1,13 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+
+:alice a :User ;                  # %*\Passes{:User} *)
+       schema:name "Alice" .
+
+:bob a :User ;
+       schema:name "Robert" .     # %*\Fails{:User} *)
+
+:myCompany a :Organization ;
+           schema:member :alice . 

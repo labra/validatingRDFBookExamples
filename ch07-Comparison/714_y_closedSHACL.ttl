@@ -1,0 +1,107 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <http://www.example.org/> .
+
+:UserShape1 a sh:NodeShape ;
+ sh:closed true ;
+ sh:property [ sh:path schema:name ;
+    sh:minCount 1; 
+    sh:maxCount 1;
+    sh:datatype xsd:string 
+ ] ;
+ sh:property [ sh:path schema:birthDate ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:date 
+ ]
+.
+
+:UserShape2 a sh:NodeShape ;
+ sh:closed true ;
+ sh:and (
+  [ sh:path schema:name ;
+    sh:minCount 1; 
+    sh:maxCount 1;
+    sh:datatype xsd:string 
+  ]
+  [ sh:path schema:birthDate ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:date 
+  ]
+ )
+.
+
+:UserShape3 a sh:NodeShape ;
+ sh:closed true ;
+ sh:and (
+  [ sh:path schema:name ;
+    sh:minCount 1; 
+    sh:maxCount 1;
+    sh:datatype xsd:string 
+  ]
+  [ sh:path schema:birthDate ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:date 
+  ]
+ )
+.
+
+:UserShape3 
+  sh:ignoredProperties (schema:name 
+                        schema:birthDate
+  ) .
+  
+:UserShape4 a sh:NodeShape ;
+ sh:closed true ;
+ sh:property [ 
+    sh:path [ sh:alternativePath ( schema:name foaf:name ) ] ;
+    sh:minCount 1; sh:maxCount 1;
+    sh:datatype xsd:string ] ;
+.  
+
+:UserShape5 a sh:NodeShape ;
+ sh:closed true ;
+ sh:ignoredProperties (schema:name 
+                        schema:birthDate
+  ) ;
+ sh:property [ 
+    sh:path [ sh:alternativePath ( schema:name foaf:name ) ] ;
+    sh:minCount 1; sh:maxCount 1;
+    sh:datatype xsd:string ] ;
+.  
+
+:UserShape6 a sh:NodeShape ;
+ sh:closed true ;
+ sh:property [ 
+   sh:path [ sh:alternativePath ( schema:name foaf:name ) ] ;
+   sh:minCount 1; 
+   sh:maxCount 1;
+   sh:datatype xsd:string 
+ ] ;
+ sh:property [ sh:path schema:name ] ;
+ sh:property [ sh:path foaf:name ] ;
+.
+:UserShape1 sh:targetNode :alice, :bob, :carol, :dave .
+:UserShape2 sh:targetNode :alice, :bob, :carol, :dave .
+:UserShape3 sh:targetNode :alice, :bob, :carol, :dave .
+:UserShape4 sh:targetNode :alice, :bob, :carol, :dave .
+:UserShape5 sh:targetNode :alice, :bob, :carol, :dave .
+:UserShape6 sh:targetNode :alice, :bob, :carol, :dave .
+  
+:alice schema:name "Alice" ;                      #%*\Pass{:UserShape1} *)
+       schema:birthDate "1980-04-03"^^xsd:date .  #%*\Fails{:UserShape2} *) 
+                                                  #%*\Pass{:UserShape3} *)
+
+:bob   schema:name "Robert" .    #%*\Pass{:UserShape1 *)
+                                 #%*\Fails{:UserShape2} *) 
+                                 #%*\Pass{:UserShape3} *)
+
+:carol schema:name "Carol" ;     #%*\Fails{:UserShape1} *) 
+       schema:cookTime 23 .      #%*\Fails{:UserShape2} *)   
+                                 #%*\Fails{:UserShape3} *)
+
+:dave foaf:name "Dave" .  #%*\Fails{:UserShape1, :UserShape2, :UserShape3} *) 

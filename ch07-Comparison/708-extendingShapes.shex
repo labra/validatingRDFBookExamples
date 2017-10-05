@@ -1,0 +1,13 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+
+:Product { 
+  schema:productId xsd:string ;
+  schema:price     xsd:decimal
+}
+
+:SoldProduct @:Product AND {
+ schema:purchaseDate xsd:date ;
+ schema:productId /^[A-Z]/
+}

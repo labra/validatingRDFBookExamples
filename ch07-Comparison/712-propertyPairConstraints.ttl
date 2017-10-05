@@ -1,0 +1,19 @@
+prefix :       <http://example.org/> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#> 
+prefix schema: <http://schema.org/> 
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix foaf:   <http://xmlns.com/foaf/0.1/> 
+ 
+:alice schema:givenName "Alice" ;
+       schema:lastName "Cooper" ;
+       foaf:firstName "Alice" ;
+       schema:birthDate "1980-03-04"^^xsd:date ;
+       :loginDate "2017-02-10"^^xsd:date .
+       
+:bob   schema:givenName "Robert" ;
+       schema:lastName "Smith" ;
+       foaf:firstName "Bob" ;
+       schema:birthDate "2018-03-04"^^xsd:date ;
+       :loginDate "2017-02-10"^^xsd:date .  
+
+       

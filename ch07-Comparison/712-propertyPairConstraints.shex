@@ -1,0 +1,17 @@
+prefix :       <http://example.org/> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#> 
+prefix schema: <http://schema.org/> 
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix foaf:   <http://xmlns.com/foaf/0.1/> 
+
+:UserShape {                                 # Not supported in ShEx 2.0
+ $<givenName> schema:givenName xsd:string ;
+ $<firstName> foaf:firstName   xsd:string ;
+ $<birthDate> schema:birthDate xsd:date ;
+ $<loginDate> :loginDate       xsd:date ;
+ $<givenName> =  $<firstName> ;
+ $<givenName> != $<lastName> ;
+ $<birthDate> <  $<loginDate>
+}
+
+       

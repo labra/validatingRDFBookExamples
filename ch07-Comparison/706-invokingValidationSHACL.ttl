@@ -1,0 +1,29 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+PREFIX sx:     <http://www.w3.org/ns/shex#>
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+
+:UserShape a sh:NodeShape ;  
+ sh:targetClass      :User ;
+ sh:targetObjectsOf  schema:member ;
+ sh:targetSubjectsOf schema:familyName ;
+ sh:targetNode       :alice ;
+ sh:property [ 
+  sh:path     schema:name ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  sh:maxCount 1
+] .
+
+:alice     schema:name "Alice" .
+
+:bob       a :User ;
+           schema:name "Robert" .
+ 
+:myCompany schema:member :carol .
+
+:carol     schema:name "Carol" .
+
+:dave      schema:familyName "Smith" ;
+           schema:name "Dave Smith" .

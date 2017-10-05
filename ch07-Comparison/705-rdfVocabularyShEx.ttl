@@ -1,0 +1,36 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+PREFIX sx:     <http://www.w3.org/ns/shex#>
+
+:Product  a     sx:Shape ;
+ sx:expression [ a sx:EachOf ;
+ sx:expressions ( 
+  [ a sx:TripleConstraint ;
+    sx:predicate schema:productId ;
+    sx:valueExpr [ a sx:NodeConstraint ; 
+                   sx:pattern "^[A-R]" ]
+  ]
+  [ a sx:TripleConstraint ;
+    sx:predicate schema:productId ;
+    sx:valueExpr [ a sx:NodeConstraint ; 
+                   sx:pattern "^[M-Z]" ]
+  ]
+  [ a sx:TripleConstraint ;
+    sx:predicate schema:brand ;
+    sx:min 0; sx:max -1; 
+    sx:valueExpr [ a sx:ShapeAnd ;
+      sx:expressions ( 
+       [ a sx:NodeConstraint; sx:nodeKind sx:iri ]
+       :Organization 
+      ) 
+    ] 
+  ]
+  [ a sx:TripleConstraint ;
+    sx:predicate schema:purchaseDate ;
+    sx:min 0 ; sx:max 1 ;
+    sx:valueExpr [ a sx:NodeConstraint ;
+                  sx:datatype xsd:date ]
+  ]
+ )
+] .

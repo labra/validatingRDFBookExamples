@@ -1,0 +1,17 @@
+@prefix :       <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+
+:alice schema:name "Alice" ;
+       schema:gender schema:Female ;
+       schema:birthDate "1994-03-04"^^xsd:date .       
+       
+:bob schema:name "Robert" ;
+     schema:gender "Unknown" ;
+     schema:birthDate "2010-03-04"^^xsd:date .              
+     
+:carol schema:name "Carol" ;
+       schema:gender schema:Malle ;
+       schema:birthDate 2010 .                   
+       

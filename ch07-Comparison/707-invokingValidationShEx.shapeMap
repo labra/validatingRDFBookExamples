@@ -1,0 +1,4 @@
+{ FOCUS rdf:type      :User }@:UserShape,
+{ _     schema:member FOCUS }@:UserShape,
+{ FOCUS schema:familyName _ }@:UserShape,
+:alice                       @:UserShape

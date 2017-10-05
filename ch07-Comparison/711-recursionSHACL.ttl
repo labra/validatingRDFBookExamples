@@ -1,0 +1,26 @@
+prefix :       <http://example.org/> 
+prefix xsd:    <http://www.w3.org/2001/XMLSchema#> 
+prefix schema: <http://schema.org/> 
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+
+:UserShapeRecursion a sh:NodeShape ;   #%* This definition is recursive *)
+  sh:nodeKind sh:IRI ;
+  sh:property [
+    sh:path schema:knows ;
+    sh:node :UserShapeRecursion
+  ] .
+
+:UserShapeRecursion sh:targetNode :alice, :bob, :carol,:emily,:dave,:heidi .
+
+:alice schema:knows :bob .
+
+:bob schema:knows :alice .
+
+:carol schema:knows :alice, :carol .
+
+:dave schema:knows [ schema:knows :dave ] .
+
+:emily schema:knows :frank .
+
+:heidi schema:knows 23 .

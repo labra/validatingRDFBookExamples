@@ -1,0 +1,26 @@
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+prefix :       <http://example.org/>
+prefix schema: <http://schema.org/>
+prefix sh:     <http://www.w3.org/ns/shacl#> 
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+
+:UserShape a sh:NodeShape ;
+ sh:property [
+   sh:path schema:name ;
+   sh:datatype xsd:string ;
+ ] ;
+ sh:property [
+   sh:path schema:givenName ;
+   sh:datatype xsd:string ;
+ ] .
+
+:alice schema:name      "Alice Cooper"; #%*\Passes{:UserShape - ShEx}*)
+       schema:givenName "Alice" .       #%*\Passes{:UserShape - SHACL}*)
+
+:bob schema:givenName   "Robert" ;      #%*\Fails{:UserShape  - ShEx}*)
+     foaf:age           23 .            #%*\Passes{:UserShape - SHACL}*)
+
+:carol schema:name      345 ;           #%*\Fails{:UserShape - ShEx}*)
+       schema:givenName 346 .           #%*\Fails{:UserShape - SHACL}*)
+
+:UserShape sh:targetNode :alice, :bob, :carol .       
