@@ -1,0 +1,11 @@
+PREFIX :       <http://example.org/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+:teaches  rdfs:domain     :Teacher .
+:Teacher  rdfs:subClassOf :Person  .
+
+:alice a :Person . 
+
+:bob a :Teacher .
+
+:carol :teaches :algebra .

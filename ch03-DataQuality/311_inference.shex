@@ -1,0 +1,5 @@
+PREFIX :       <http://example.org/>
+
+:PersonShape { a [:Person] }
+
+:TeacherShape { a [:Teacher] }

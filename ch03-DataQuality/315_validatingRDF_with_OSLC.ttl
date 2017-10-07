@@ -1,0 +1,18 @@
+PREFIX schema: <http://schema.org/>
+PREFIX :       <http://example.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX rs:     <http://open-services.net/ns/core#>
+
+:user a rs:ResourceShape ;
+ rs:property [
+  rs:name "name" ;
+  rs:propertyDefinition schema:name ;
+  rs:valueType xsd:string ;
+  rs:occurs rs:Exactly-one ;
+] ;
+ rs:property [
+  rs:name "gender" ;
+  rs:propertyDefinition schema:gender ;
+  rs:allowedValue schema:Male, schema:Female ;
+  rs:occurs rs:Zero-or-one ;
+].

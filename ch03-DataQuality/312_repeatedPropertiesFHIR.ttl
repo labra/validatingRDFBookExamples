@@ -1,0 +1,19 @@
+prefix fhir: <http://hl7.org/fhir/>
+
+:Obs1 a fhir:Observation ;
+ fhir:Observation.code          fhir:LOINC8310-5 ;
+ fhir:Observation.valueQuantity 36.5 ;
+ fhir:Observation.valueUnit     "Cel" .
+ 
+:Obs2 a fhir:Observation ;
+ fhir:Observation.code      fhir:LOINC55284-4 ;
+ fhir:Observation.component [
+  fhir:Observation.component.code          fhir:LOINC8480-6 ;
+  fhir:Observation.component.valueQuantity 107 ;
+  fhir:Observation.component.valueUnit     "mm[Hg]"
+ ];
+ fhir:Observation.component [
+  fhir:Observation.component.code          fhir:LOINC8462-4 ;
+  fhir:Observation.component.valueQuantity 60 ;
+  fhir:Observation.component.valueUnit     "mm[Hg]"
+ ] . 

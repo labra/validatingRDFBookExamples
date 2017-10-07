@@ -1,0 +1,6 @@
+PREFIX schema: <http://schema.org/>
+PREFIX :       <http://example.org/>
+
+:alice schema:name   "Alice" ;
+       schema:gender schema:Female .
+       

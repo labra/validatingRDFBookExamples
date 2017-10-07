@@ -1,0 +1,25 @@
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+ASK { 
+ { SELECT ?Person { 
+   ?Person schema:name ?o .
+   } GROUP BY ?Person HAVING (COUNT(*)=1)
+ } 
+ { SELECT ?Person {
+    ?Person schema:name ?o .
+   FILTER ( isLiteral(?o) && 
+            datatype(?o) = xsd:string )
+   } GROUP BY ?Person HAVING (COUNT(*)=1)
+ }
+ { SELECT ?Person (COUNT(*) AS ?c1) {
+    ?Person schema:gender ?o .
+   } GROUP BY ?Person HAVING (COUNT(*)=1)
+ }
+ { SELECT ?Person (COUNT(*) AS ?c2) {
+    ?Person schema:gender ?o .
+    FILTER ((?o = schema:Female || ?o = schema:Male))
+   } GROUP BY ?Person HAVING (COUNT(*)=1)
+ }
+ FILTER (?c1 = ?c2)
+}

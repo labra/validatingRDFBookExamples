@@ -1,0 +1,8 @@
+PREFIX schema: <http://schema.org/>
+PREFIX :       <http://example.org/>
+
+:bob   schema:name   23 ;
+       schema:gender schema:Male .       
+       
+:carol schema:name   "Carol" ;
+       schema:gender schema:Felmale .

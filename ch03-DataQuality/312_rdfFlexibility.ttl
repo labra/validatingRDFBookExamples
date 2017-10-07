@@ -1,0 +1,8 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+
+:angie schema:creator "Keith Richards" ,
+                      [ a schema:Person ;
+                          schema:givenName "Mick" ;
+                          schema:familyName "Jagger"
+                      ] .

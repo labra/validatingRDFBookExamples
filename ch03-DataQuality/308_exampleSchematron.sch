@@ -6,11 +6,14 @@
    >IDs must start by S</sch:assert>
   </sch:rule>
  </sch:pattern>
- <sch:pattern name="Check totalStudents">
-  <sch:rule context="totalStudents">
+ <sch:pattern name="Check mean">
+  <sch:rule context="average">
     <sch:assert 
-      test="count(//student) = .">Value of <sch:name/> wrong 
+      test="sum(//student/grade) div 
+	        count(//student/grade) = ." 
+	  >Value of <sch:name/> does not match mean 
      </sch:assert>
    </sch:rule>
  </sch:pattern>
 </sch:schema>
+

@@ -1,0 +1,6 @@
+course User inv:
+self.gender ->forAll(g | Set{'Male','Female '}->includes(g) )
+self.knows ->forAll(k | k <> self)
+
+context Course inv:
+self.startDate < self.endDate

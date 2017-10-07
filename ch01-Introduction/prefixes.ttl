@@ -1,0 +1,13 @@
+prefix : <http://example.org/>
+prefix cex: <http://purl.org/weso/computex/ontology#>
+prefix cdt: <http://example.org/customDataTypes#>
+prefix dbr: <http://dbpedia.org/resource/>
+prefix ex: <http://example.org/>
+prefix qb: <http://purl.org/linked-data/cube#>
+prefix org: <http://www.w3.org/ns/org#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix schema: <http://schema.org/>
+prefix sh: <http://www.w3.org/ns/shacl#>
+prefix sx: <http://shex.io/ns/shex#>

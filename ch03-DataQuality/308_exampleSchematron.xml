@@ -3,9 +3,9 @@
   <name>Alice</name>
   <grade>8</grade>
  </student>
- <student id="S476">
+ <student id="B476">
   <name>Robert</name>
   <grade>5</grade>
  </student>
- <totalStudents>2</totalStudents>
+ <average>9</average>
 </course>

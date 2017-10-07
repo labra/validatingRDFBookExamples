@@ -1,0 +1,31 @@
+PREFIX schema: <http://schema.org/>
+PREFIX :       <http://example.org/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:    <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+schema:Person a  owl:Class ;
+ rdfs:subClassOf [ owl:onProperty schema:name ; 
+                   owl:minCardinality 1 ] ,
+                 [ owl:onProperty schema:gender; 
+                   owl:minCardinality 0 ]
+                 [ owl:onProperty schema:knows ; 
+                   owl:minCardinality 0 
+                 ] .
+
+schema:name a           owl:DatatypeProperty ,
+                        owl:FunctionalProperty; 
+            rdfs:domain schema:Person ;
+            rdfs:range  xsd:string .
+
+schema:gender a           owl:ObjectProperty ,
+                          owl:FunctionalProperty; 
+              rdfs:domain schema:Person ;
+              rdfs:range  :Gender .
+
+schema:knows  a           owl:ObjectProperty ;
+              rdfs:domain schema:Person ;
+              rdfs:range  schema:Person .
+
+schema:Female a :Gender .
+schema:Male   a :Gender . 
