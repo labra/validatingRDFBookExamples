@@ -1,0 +1,9 @@
+[{
+ "schemaLabel": "First example",
+ "schemaURL": "401_firstExample.shex",
+ "dataLabel": "Valid data",
+ "dataURL": "401_firstExample.ttl",
+ "queryMap": ":alice@:User,:bob@:User,:carol@:User,:emily@:User,:frank@:User,:grace@:User,:harold@:User",
+ "status": "conformant"
+ }
+]
