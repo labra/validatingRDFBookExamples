@@ -2,7 +2,7 @@
  "schemaLabel": "First example",
  "schemaURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/401_firstExample.shex",
  "dataLabel": "Valid data",
- "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/401_firstExample.ttl",
+ "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/401_firstExample_good.ttl",
  "queryMap": ":alice@:User,:bob@:User,:carol@:User",
  "status": "conformant"
  },
@@ -10,7 +10,7 @@
  "schemaLabel": "First example",
  "schemaURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/401_firstExample.shex",
  "dataLabel": "Non conformant data",
- "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/401_firstExample.ttl",
+ "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/401_firstExample_bad.ttl",
  "queryMap": ":emily@:User,:frank@:User,:grace@:User,:harold@:User",
  "status": "nonconformant"
  }
