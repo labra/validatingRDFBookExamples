@@ -14,9 +14,9 @@ prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
  a           [:Teacher];
  a           [:Person];
  schema:name xsd:string ;
- :teaches    { a [:Course] } @:Course
+ :teaches    @:Course AND EXTRA a { a [:Course] } 
 }
 
-:Course {  
- a [:Course]? 
+:Course EXTRA a {  
+ a [:Course]
 }
