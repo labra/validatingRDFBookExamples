@@ -1,9 +1,17 @@
 [{
  "schemaLabel": "First example",
  "schemaURL": "401_firstExample.shex",
- "dataLabel": "Valid data",
+ "dataLabel": "Conformant data",
  "dataURL": "401_firstExample.ttl",
- "queryMap": ":alice@:User,:bob@:User,:carol@:User,:emily@:User,:frank@:User,:grace@:User,:harold@:User",
+ "queryMap": ":alice@:User,:bob@:User,:carol@:User",
  "status": "conformant"
+ },
+ {
+ "schemaLabel": "First example",
+ "schemaURL": "401_firstExample.shex",
+ "dataLabel": "Non conformant data",
+ "dataURL": "401_firstExample.ttl",
+ "queryMap": ":emily@:User,:frank@:User,:grace@:User,:harold@:User",
+ "status": "nonconformant"
  }
 ]
