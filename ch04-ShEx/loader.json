@@ -13,5 +13,13 @@
  "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/401_firstExample_bad.ttl",
  "queryMap": ":emily@:User,:frank@:User,:grace@:User,:harold@:User",
  "status": "nonconformant"
+ },
+ {
+ "schemaLabel": "Inference example",
+ "schemaURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/465_ShExInference.shex",
+ "dataLabel": "Non conformant data",
+ "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/465_ShExInference.ttl",
+ "queryMap": ":alice@:TeacherBefore,:bob@:TeacherBefore,:carol@:TeacherBefore",
+ "status": "nonconformant"
  }
 ]
