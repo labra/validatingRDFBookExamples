@@ -1,0 +1,17 @@
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+
+:alice schema:name           "Alice" ;            # %* \Passes{:User} *)
+       schema:gender         schema:Female ;
+       schema:knows          :bob .
+
+:bob   schema:gender         schema:Male ;        # %* \Passes{:User} *)
+       schema:name           "Robert";            
+       schema:birthDate      "1980-03-10"^^xsd:date .
+
+:carol schema:name           "Carol" ;            # %* \Passes{:User} *)
+       schema:gender         "unspecified" ;  
+       foaf:name             "Carol" .
+
