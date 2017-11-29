@@ -15,6 +15,22 @@
  "status": "nonconformant"
  },
  {
+ "schemaLabel": "Invoking ShEx",
+ "schemaURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/402_invoking.shex",
+ "dataLabel": "Example of query map",
+ "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/402_invoking.ttl",
+ "queryMap": ":alice@:User,:bob@:User",
+ "status": "conformant"
+ },
+ {
+ "schemaLabel": "Query map",
+ "schemaURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/403_queryMap.shex",
+ "dataLabel": "More complex query maps",
+ "dataURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/403_queryMap.ttl",
+ "queryMap": "{FOCUS schema:name _}@:User,\n{_ schema:knows FOCUS}@:User,\n{FOCUS rdf:type schema:Person}@:User",
+ "status": "conformant"
+ },
+ {
  "schemaLabel": "Inference example",
  "schemaURL": "https://rawgit.com/labra/validatingRDFBookExamples/master/ch04-ShEx/465_ShExInference.shex",
  "dataLabel": "Non conformant data",
