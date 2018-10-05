@@ -14,7 +14,7 @@
     sh:path      :teaches ; 
     sh:minCount  1; 
     sh:datatype  xsd:string;
-  ] ;
+  ] .
 
 :HasEmail sh:deactivated true .
 
@@ -23,7 +23,7 @@
        schema:email <mailto:alice@example.org>;
        :teaches "Logic" .
 
-:bod   a :Teacher ;                      #%*\Passes{:TeacherShape} *) 
+:bob   a :Teacher ;                      #%*\Passes{:TeacherShape} *) 
        schema:name "Robert" ;
        schema:email "This email is not an IRI";
        :teaches "Algebra" .
