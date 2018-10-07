@@ -1,0 +1,40 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+:UserShape a sh:NodeShape ;
+ sh:targetClass :User ;
+ sh:sparql [
+  a sh:SPARQLConstraint ;
+  sh:message "schema:name must equal schema:givenName+schema:familyName";
+  sh:prefixes [
+   sh:declare [
+    sh:prefix "schema" ;
+    sh:namespace "http://schema.org/"^^xsd:anyURI ;
+   ]
+ ] ;
+ sh:select
+  """SELECT $this (schema:name AS ?path) (?name as ?value)
+     WHERE {
+      $this schema:name ?name .
+      $this schema:givenName ?givenName .
+      $this schema:familyName ?familyName .
+      FILTER (!isLiteral(?value) || 
+	          !isLiteral(?givenName) || !isLiteral(?familyName) ||
+              concat(str(?givenName), ' ', str(?familyName))!=?name )
+     }""" ;
+] .
+
+:alice a :User ; # Passes as :UserShape
+  schema:givenName "Alice" ;
+  schema:familyName "Cooper" ;
+  schema:name "Alice Cooper" .
+
+:bob a :User ; # Fails as :UserShape
+  schema:givenName "Bob" ;
+  schema:familyName "Smith" ;
+  schema:name "Robert Smith" .

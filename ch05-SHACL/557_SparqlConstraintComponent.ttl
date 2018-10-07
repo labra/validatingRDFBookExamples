@@ -6,6 +6,15 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix : <http://www.example.org/> .
 
+:ListShape a sh:NodeShape ;
+ sh:or ( 
+  [ sh:hasValue rdf:nil ]
+  [ sh:property [
+       sh:path rdf:first ;
+       sh:minCount 1 ;
+	   sh:maxCount 1 
+  ] ]
+) .
 
 :FixedListConstraintComponent 
  a sh:ConstraintComponent ;
@@ -27,12 +36,12 @@
   sh:select """
    SELECT $this ?value $count WHERE {
      $this $PATH ?value .
-     { { SELECT $this ?value (COUNT(?member) AS ?count) $size WHERE {
+     { 
+	  SELECT $this ?value (COUNT(?member) AS ?count) $size WHERE {
           ?value rdf:rest*/rdf:first ?member
-       } GROUP BY $this ?value $size
-      }
+      } GROUP BY $this ?value $size
+     }
      FILTER (!isBlank(?value) || ?count != $size)
-    }
   }"""
  ] .
     
@@ -41,7 +50,8 @@
  sh:property [ 
   sh:path :color ;
   :size 3 ;
-  sh:minCount 1
+  sh:minCount 1 ;
+  sh:node :ListShape ;
  ] .
 
 :p1 a :Product ;       #%*\Passes{:Product} *) 

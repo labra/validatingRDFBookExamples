@@ -1,0 +1,36 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+
+:ConcertShape a sh:NodeShape ;
+ sh:targetClass :Concert ;
+ sh:property [
+  sh:path schema:doorTime ;
+  sh:datatype xsd:dateTime ;
+  sh:lessThanOrEquals schema:startDate ;
+];
+ sh:property [
+  sh:path schema:startDate ;
+  sh:datatype xsd:dateTime ;
+  sh:lessThan schema:endDate
+];
+ sh:property [
+  sh:path schema:endDate ;
+  sh:datatype xsd:dateTime ;
+] .
+
+:concert1 a :Concert ; # V Passes as :ConcertShape
+ schema:doorTime  "2017-04-20T20:00:00"^^xsd:dateTime ;
+ schema:startDate "2017-04-20T21:30:00"^^xsd:dateTime ;
+ schema:endDate   "2017-04-20T23:00:00"^^xsd:dateTime ;
+.
+:concert2 a :Concert ; # V Passes as :ConcertShape
+ schema:doorTime  "2018-04-20T20:00:00"^^xsd:dateTime ;
+ schema:startDate "2017-04-20T21:00:00"^^xsd:dateTime ;
+ schema:endDate   "2017-04-20T21:00:00"^^xsd:dateTime ;
+.

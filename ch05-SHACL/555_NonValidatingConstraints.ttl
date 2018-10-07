@@ -1,0 +1,54 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.example.org/> .
+
+
+:UserShape a sh:NodeShape ;
+ sh:property [
+  sh:path schema:familyName ;
+  sh:name "family Name";
+  sh:description "Family name. In the U.S., the last name of an Person";
+  sh:order 2 ;
+  sh:group :nameGroup ;
+  sh:minCount 1 ;
+ ] ;
+ sh:property [
+  sh:path schema:givenName ;
+  sh:name "Given name";
+  sh:description "Given name. In the U.S., the first name of a Person";
+  sh:order 1 ;
+  sh:group :nameGroup ;
+  sh:minCount 1 ;
+ ];
+ sh:property [
+  sh:path schema:streetAddress ;
+  sh:name "Street address";
+  sh:order 5 ;
+  sh:group :addressGroup
+ ] ;
+ sh:property [
+  sh:path schema:addressCountry ;
+  sh:name "Country";
+  sh:defaultValue "Spain" ;
+  sh:order 6 ;
+  sh:group :addressGroup
+] .
+
+:nameGroup a sh:PropertyGroup ;
+ rdfs:label "Name" .
+
+:addressGroup a sh:PropertyGroup ;
+ rdfs:label "Address" .
+
+:UserShape sh:targetNode :alice, :bob . 
+
+:alice  schema:familyName "Cooper" ;
+        schema:givenName  "Alice" .
+		
+:bob  schema:streetAddress "NoAddress" ;
+      schema:givenName  "Robert" .
+		

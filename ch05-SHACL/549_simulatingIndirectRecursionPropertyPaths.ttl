@@ -1,0 +1,62 @@
+@prefix :       <http://example.org/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema: <http://schema.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+:User a sh:NodeShape,rdfs:Class ;
+ sh:property [
+  sh:path [ sh:zeroOrMorePath (schema:worksFor schema:employee) ];
+  sh:node :UserStructure
+ ] ;
+ sh:property [
+  sh:path schema:worksFor ;
+  sh:node :CompanyStructure
+ ] .
+
+:UserStructure a sh:NodeShape;
+  sh:property [
+   sh:path schema:name ;
+   sh:datatype xsd:string ;
+   sh:minCount 1; sh:maxCount 1;
+ ]
+.
+
+:Company a sh:NodeShape ;
+ sh:property [
+  sh:path [ sh:zeroOrMorePath (schema:employee schema:worksFor) ];
+  sh:node :CompanyStructure
+ ] ;
+ sh:property [
+  sh:path schema:employee ;
+  sh:node :UserStructure
+ ] .
+ 
+:CompanyStructure a sh:NodeShape ;
+ sh:property [
+  sh:path schema:legalName ;
+  sh:datatype xsd:string ;
+  sh:minCount 1; 
+  sh:maxCount 1
+] .
+
+:alice a :User ; 
+       schema:name "Alice" ;         #%*\Passes{:User} *) 
+       schema:worksFor :OneCompany .  
+
+:bob   a :User ;
+       schema:name "Robert" ;        #%*\Passes{:User} *) 
+       schema:worksFor :OneCompany .  
+
+:carol a :User ;
+       schema:name 34 ;              #%*\Fails{:User} *) 
+       schema:worksFor :Something .  #%* Wrong datatype for schema:name *)
+
+:OneCompany schema:legalName "One" ; #%*\Passes{:Company} *)  
+            schema:employee  :alice, 
+                             :bob .
+
+:Something a :Company ;              #%*\Fails{:Company} *) 
+           schema:legalName 0 .      #%* Wrong datatype for schema:legalName *)
